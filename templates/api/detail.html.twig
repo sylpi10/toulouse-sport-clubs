@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clubs sport{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <h1>Club Detail</h1>
+    <hr>
+    <div class="club-list">
+        
+        {% for item in club.records %}
+        
+            {% if item.recordid == id %}
+                <div class="club-detail">
+                
+                    <h1>{{item.fields.asso_nom}}</h1>
+                    <h2>{{item.fields.discipline}}</h2>
+                    
+                    <h3> {{item.fields.complexe ? item.fields.complexe : ''}} </h3>
+                    <p> {{item.fields.rue_libelle ? item.fields.rue_libelle : ''}} </p>
+                    <p> {{item.fields.quartiers ? item.fields.quartiers : ''}} </p>
+                    <p>{{item.fields.uf_cp}}</p>
+
+                    {% if item.fields.pers_internet %}
+                        <a href="{{"http://" ~ item.fields.pers_internet}}" target="_new">
+                            {{item.fields.pers_internet}}
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+        {% endfor %} 
+
+        </div>
+    </div>
+
+{% endblock %}

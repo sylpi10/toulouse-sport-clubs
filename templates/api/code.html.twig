@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Code{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>By code  </h1>
+
+    <div class="club-list">
+        
+        {% for item in clubs.records %}
+        
+                <div class="club-detail">
+                
+                    <h2> <a href="{{path('detail', {'id': item.recordid})}}"> {{item.fields.asso_nom}} </a></h2>
+                    <h2>{{item.fields.discipline}}</h2>
+                    
+                    <h3> {{item.fields.complexe ? item.fields.complexe : ''}} </h3>
+                    <p>{{item.fields.rue_libelle ? item.fields.rue_libelle : ''}} </p>
+                    <p>{{item.fields.quartiers ? item.fields.quartiers : ''}} </p>
+                    <p>{{item.fields.uf_cp}}</p>
+
+                    {% if item.fields.pers_internet %}
+                        <a href="{{"http://" ~ item.fields.pers_internet}}" target="_new">
+                            {{item.fields.pers_internet}}
+                        </a>
+                    {% endif %}
+                </div>
+
+        {% endfor %} 
+
+    </div>
+
+</div>
+
+{% endblock %}
