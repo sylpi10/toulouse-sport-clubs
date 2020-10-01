@@ -8,6 +8,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class ApiController extends AbstractController
 {
@@ -18,39 +19,47 @@ class ApiController extends AbstractController
     {
 
         $form = $this->createFormBuilder()
-        ->add('code', TextType::class)
+        // ->add('code', TextType::class)
         ->add('sport', TextType::class)
-        ->add('filter', SubmitType::class)
+        // ->add('filter', SubmitType::class)
         ->getForm();
 
     $form->handleRequest($request);
-
+    $districts = array('31000' => 31000,'31100'=>31100, 
+                       '31200' => 31200,'31300' => 31300,
+                       '31400' => 31400, '31500' => 31500);
+    
     if ($form->isSubmitted() && $form->isValid()) {
        
-        $code = $form->get('code')->getData();
-        // $searchedSport = $form->get('sport')->getData();
+        // $code = $form->get('code')->getData();
+        // $code = $districts-> something...;
         $sport= $form->get('sport')->getData();
-
         // if (str_contains($sport, $searchedSport) {
         //     # code...
         // }
         if ($sport) {
             $sport = strtoupper($sport);
         }
-    
-        $response = $httpClient->request(
-            'GET', 
-            'https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=annuaire-des-associations-et-clubs-sportifs&q=&rows=1000&refine&refine.uf_cp=' .$code); 
-            
-            $clubs = $response->toArray();
+        foreach ($districts as $district) {
+            $code = $district;
+        }
 
-            return $this->render('api/index.html.twig', [
-                'form' => $form->createView(),
-                'clubs' => $clubs,
-                'code' => json_decode($code),
-                'sport' => $sport
-            ]);
+        // $response = $httpClient->request(
+        //     'GET', 
+        //     // 'https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=annuaire-des-associations-et-clubs-sportifs&q=&rows=1000&refine.uf_cp=' .$code); 
+        //     'https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=annuaire-des-associations-et-clubs-sportifs&q=&rows=1000'); 
+            
+        //     $clubs = $response->toArray();
+        //     return $this->render('api/index.html.twig', [
+        //         'form' => $form->createView(),
+        //         'clubs' => $clubs,
+        //         'code' => $code,
+        //         'sport' => $sport,
+        //         'districts' => $districts
+        //     ]);
     }
+
+    $districts = array('d31000' => 31000,'d31100'=>31100, 'd31200' => 31200);
 
     // $response = $httpClient->request(
     //     'GET', 
@@ -60,6 +69,8 @@ class ApiController extends AbstractController
         return $this->render('api/index.html.twig', [
             'form' => $form->createView(),
             // 'clubs' => $clubs,
+            'd31100' => $districts['d31000'],
+            'districts' => $districts
         ]);
     }
 
