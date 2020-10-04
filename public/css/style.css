@@ -1,37 +1,32 @@
-.container{
-    width: 74%;
-    margin: auto;
-    border: solid 1px #ccc;
-}
-
-.club-list{
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.club-detail{
-    width: 300px;   
-    padding: 12px;
-    margin: 8px auto;
-    box-shadow: 2px 2px 2px #ccc, -2px -2px 2px #ccc;
-}
-
 
 @font-face{
-    font-family: "freshman";
-    /* src: url('fonts/Freshman.ttf'); */
-}
+    font-family: "freshman"; 
+    src: url('../fonts/Freshman.ttf'); 
+    font-family: "sketchy";
+ }
+@font-face{
+    font-family: "sketchy";
+    src: url('../fonts/CabinSketch-Regular.ttf'); 
+ }
 
 body{
     padding: 0;margin: 0;
     box-sizing: border-box;
-    /* background: url("Imgs/back.jpg") no-repeat; */
-    color: #333;
+    background: url("../images/back.jpg") no-repeat;
+    color: rgb(29, 12, 128);
     background-size: cover;
-    font-family: "Montserrat";
+    font-family: "sketchy";
     text-align: center;
     background-attachment: fixed;
+}
+
+.container-fluid{
+    background-color: rgba(255,255,255,.65);
+    height: 100vh;
+}
+.container{
+    background-color: rgba(255,255,255,.65);
+    margin-top: 0px;
 }
 
 header{
@@ -44,52 +39,31 @@ header{
     position: fixed;
     width: 100%;
     color: #fff;
-    margin-top: -100px;
     z-index: 999;
 }
-header h2{
+header h1{
     font-family: "freshman";
-    text-shadow: 1px 1px 1px #333;
     font-size: 2rem;
     display: flex;
 }
-header a{
-    background-color: #333;
-    margin-left: 10%;
-    color:#fff;
-    text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-}
-header button{
-    background-color: #333;
-    color: #fff;
-    padding: 6px 18px;
-    border:solid 1px #333;
-    border-radius: 4px;
-    display: none;
-    transition: all ease .4s;
-    cursor: pointer;
-}
-header button:hover{
-    box-shadow: 2px 2px 8px #ccc, -2px -2px 8px #ccc;
-}
-h1{
+
+h2{
     color: #333;
     z-index: 999;
-    margin-top: 100px;
     font-size: 1.6rem;
 }
+/* .search-results h2{
+    padding: 20px;
+} */
 
 /* container of districts list, map and form */
-
 .main{
     display: -webkit-flex;
     margin: auto;
     display: -ms-flex;
     display: flex;
     justify-content: space-between;
-    height: 80vh;
+    height: 75vh;
     width: 84%;
     align-items: center;
 }
@@ -107,95 +81,136 @@ svg{
     fill: #ccc;
     cursor: pointer;
 }
-/* .district:checked{
-    fill:#333;
-} */
+
 .districts-text{
     text-align: left;
     width: 30%;
 }
-.districts-text h2{
+.districts-text h3{
     color: #333;
     font-size: 1.4rem;
 }
 .districts-text ul{
-    display: none;
-    margin-top: -20px;
     text-align: left;
-    margin-left: -20px;
+    transform: scaleY(0);
+    height: 0;
+    transition: all 0.6s ease;
+}
+.districts-text ul li{
+    margin-top:10px;
+}
+.hidden{
+    display: none;
 }
 
-
-
-/* [type="checkbox"]:not(:checked){
-    color: #f00 !important;
-    border:none;
-   } */
-
-iframe{
-    margin: 200px auto;
-    box-shadow: 3px 3px 32px #ccc, -3px -3px 32px #ccc;
-}
-
+/* district nums */
 tspan{
     color: #333 !important;
     font-size: .8rem;
 }
-.ok{
-    width: 200px;
-    margin: -280px auto 200px auto;
-    text-align: center;
+
+
+/*results*/
+.results h2, .details-page h2{
+    padding-top: 100px;
+}
+
+.club-list{
     display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.club-detail{
+    width: 300px;   
+    padding:30px 12px;
+    margin: 8px auto;
+    box-shadow: 2px 2px 2px #ccc, -2px -2px 2px #ccc;
+    background: url("../images/fanion.jpg") no-repeat;
+    background-size: cover;
+}
+
+/* details page*/
+.name-discipline{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 66px;
+    align-items: flex-end;
+}
+.pennant{
+    background: url("../images/fanion.jpg") no-repeat;
+    background-size: cover;
+    width: 340px;
+    height: 300px;
+    text-align: center;
+}
+.pennant h2, h3{
+    width: 100%;
+    text-align: center;
+}
+.pennant h3{
+    padding-top: 60px;
+    color: #fff;
+}
+.only-club-detail{
+    width: 90%;
+    margin: auto;
+}
+
+.only-club-detail i{
+    font-size: 2.8rem;
+    margin: 30px 0;
+    opacity: .8;
+}
+
+.only-club-detail p {
+    font-size: 1.4rem;
+}
+
+.web-link{
+    margin: 40px auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 60%;
+}
+.web-link a {
+    background-color: rgba(64, 121, 253, 0.924);
+    color: #fff;
+    height: 60px;
+    padding: 8px 28px;
+    font-size: 1.6rem;
+}
+.arrow1{
+    transform: rotate(45deg);
+    font-size: 1.5em !important;
+}
+
+.arrow2{
+    transform: rotate(220deg);
+    font-size: 1.5rem !important;
 }
 
 
-#result{
-    display: -webkit-flex;
-    display: -ms-flex;
+.even{
+    transform: skewY(12deg);
+}
+
+.odd{
+    transform: skewY(-12deg);
+}
+.specifics{
+    padding-bottom: 200px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    width: 74%;
-    margin: auto;
+    width: 100%;
 }
-#result > ul{
-    color: #333;
-    list-style-type: none;
-    width: 24%;
-    padding: 50px;
-    box-shadow:  4px 4px 14px #333,  -4px -4px 14px #333;
-    margin-bottom: 40px;
-    background-color: rgba(173, 216, 230,.93);
+.specifics i{
+    font-size: 1.5rem !important;
 }
-
-li{
-    margin: 30px;
-}
-li>a{
-    color: #ff0;
-    text-decoration: none;
-    background-color: #333;
-    padding: 8px 22px;
-    transition: all ease .3s;
-    border: solid 1px #333;
-}
-li>a:hover{
-    background-color: transparent;
-    color: #333;
-}
-
- .comment{
-    display: flex;
-    flex-direction: column;
-    margin-top: 40px;
-}
-.comment h3{
-    font-size: 1rem;
-}
-.comment form{
-    display: flex;
-    flex-direction: column;
-}
-.comment form > .nickname{
-    width: 30%;
+.specifics p {
+    height: 40px;
+    width: 320px;
 }

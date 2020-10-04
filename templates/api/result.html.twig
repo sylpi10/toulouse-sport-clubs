@@ -1,40 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Code{% endblock %}
+{% block title %}Results{% endblock %}
 
 {% block body %}
 
-<div class="container">
-    <h1>result </h1>
 
-    <h2>research : code = {{code}}, sport = {{sport}}</h2>
+<div class="container results">
+{% for key, val in datas %}
 
-    <div class="club-list">
-        
-        {% for item in clubs.records %}
-        
-                <div class="club-detail">
+{% if val == 1 %}
+    
+    <h2 class="">  Clubs de {{sport}} dans le {{key}} :</h2>
+
+
+                    <main class="club-list">
+                        {% for club in clubs.records %}
+                        
+                            {# add filter from discipline input form  #}
+                            {% if sport|lower in club.fields.discipline|lower %} 
+                                {% if key == club.fields.uf_cp %}
+
+                                <div class="club-detail">
+                                    <h3> <a href="{{path('detail', {'id': club.recordid})}}"> 
+                                        {{club.fields.asso_nom}} </a>
+                                    </h3>
+                                    <h4>{{club.fields.discipline|title}}</h4>
+                                    {% if club.fields.quartiers %}
+                                    <p> {{club.fields.quartiers}} </p>
+                                    {% endif %}
+                                    <p> {{club.fields.uf_cp}}</p>
+                                </div>
+                                
+                                {% endif %}
+                                
+                            {% endif %}
+                                
+                        {% endfor %}
+                    </main>
+
+        {% endif %}
+    {% endfor %}
                 
-                    <h2> <a href="{{path('detail', {'id': item.recordid})}}"> {{item.fields.asso_nom}} </a></h2>
-                    <h2>{{item.fields.discipline}}</h2>
-                    
-                    <h3>{{item.fields.complexe ? item.fields.complexe : ''}} </h3>
-                    <p> {{item.fields.rue_libelle ? item.fields.rue_libelle : ''}} </p>
-                    <p> {{item.fields.quartiers ? item.fields.quartiers : ''}} </p>
-                    <p> {{item.fields.uf_cp}}</p>
-
-                    {% if item.fields.pers_internet %}
-                        <a href="{{"http://" ~ item.fields.pers_internet}}" target="_new">
-                            {{item.fields.pers_internet}}
-                        </a>
-                    {% endif %}
-                </div>
-
-        {% endfor %} 
-
-        </div>
-
-   
 </div>
 
 {% endblock %}

@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 
@@ -15,9 +14,8 @@ class ApiClient{
         $this->client = $httpClient;
     }
 
-     public function getClubs(HttpClientInterface $httpClient)  
+     public function getClubs()  
      {
-         $response = $httpClient->request('GET', "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=annuaire-des-associations-et-clubs-sportifs&q=&rows=1000");
          $rep = $this->client->request('GET', 'https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=annuaire-des-associations-et-clubs-sportifs&q=&rows=1000');
          $clubs = $rep->toArray();
          return $clubs;

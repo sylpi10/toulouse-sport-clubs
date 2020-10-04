@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\SportClub;
+use App\Service\ClubApiService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -15,64 +18,156 @@ class ApiController extends AbstractController
     /**
      * @Route("/", name="api")
      */
-    public function index(HttpClientInterface $httpClient, Request $request)
+    public function index(HttpClientInterface $httpClient, 
+    Request $request, ClubApiService $apiService, 
+    EntityManagerInterface $manager
+    )
     {
 
-        $form = $this->createFormBuilder()
+        $form = $this->createFormBuilder([
+            "method" => 'POST'
+        ])
         // ->add('code', TextType::class)
-        ->add('sport', TextType::class)
+        ->add('31000', CheckboxType::class,[
+            'label' => 'Toulouse Centre',
+            'required' => false,
+            'attr' => [
+                'value' => '31000',
+                'class' => 'checkbox check31000',
+            ]
+            ])
+        ->add('31100', CheckboxType::class,[
+            'label' => 'Toulouse Rive gauche',
+            'required' => false,
+            'attr' => [
+                'value' => '31100',
+                'class' => 'checkbox check31100'
+            ]
+            ])
+        ->add('31200', CheckboxType::class,[
+            'label' => 'Toulouse Nord',
+            'required' => false,
+            'attr' => [
+                'value' => '31200',
+                'class' => 'checkbox check31200'
+            ]
+            ])
+        ->add('31500', CheckboxType::class,[
+            'label' => 'Toulouse Est',
+            'required' => false,
+            'attr' => [
+                'value' => '31500',
+                'class' => 'checkbox check31500'
+            ]
+            ])
+        ->add('31300', CheckboxType::class,[
+            'label' => 'Toulouse Ouest',
+            'required' => false,
+            'attr' => [
+                'value' => '31300',
+                'class' => 'checkbox check31300'
+            ]
+            ])
+        ->add('31400', CheckboxType::class,[
+            'label' => 'Toulouse Sud Est',
+            'required' => false,
+            'attr' => [
+                'value' => '31400',
+                'class' => 'checkbox check31400'
+            ]
+            ])
+        ->add('sport', TextType::class, [
+            'attr' => [
+                'placeholder' => 'Ex: Escalade',
+            ]
+        ])
         // ->add('filter', SubmitType::class)
         ->getForm();
 
     $form->handleRequest($request);
-    $districts = array('31000' => 31000,'31100'=>31100, 
-                       '31200' => 31200,'31300' => 31300,
-                       '31400' => 31400, '31500' => 31500);
     
     if ($form->isSubmitted() && $form->isValid()) {
-       
+        
         // $code = $form->get('code')->getData();
-        // $code = $districts-> something...;
         $sport= $form->get('sport')->getData();
-        // if (str_contains($sport, $searchedSport) {
-        //     # code...
-        // }
+        $d31000 = $form->get('31000')->getData();
+        $d31100 = $form->get('31100')->getData();
+        $d31200 = $form->get('31200')->getData();
+        $d31300 = $form->get('31300')->getData();
+        $d31400 = $form->get('31400')->getData();
+        $d31500 = $form->get('31500')->getData();
+        
+        $districts = array($d31000, $d31100, $d31200, $d31300, $d31400, $d31500);
+        // dd ($districts);
+        $datas = $form->getData();
+        // dd($datas);
         if ($sport) {
             $sport = strtoupper($sport);
         }
-        foreach ($districts as $district) {
-            $code = $district;
-        }
+        // foreach ($districts as $district) {
+        //     $code = $district;
+        // }
 
         // $response = $httpClient->request(
         //     'GET', 
         //     // 'https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=annuaire-des-associations-et-clubs-sportifs&q=&rows=1000&refine.uf_cp=' .$code); 
-        //     'https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=annuaire-des-associations-et-clubs-sportifs&q=&rows=1000'); 
-            
-        //     $clubs = $response->toArray();
-        //     return $this->render('api/index.html.twig', [
-        //         'form' => $form->createView(),
+        //      'https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=annuaire-des-associations-et-clubs-sportifs&q=&rows=1000'); 
+             
+        //      $clubs = $response->toArray();
+        //      return $this->render('api/result.html.twig', [
+        //          'form' => $form->createView(),
         //         'clubs' => $clubs,
-        //         'code' => $code,
+        //         // 'code' => $code,
         //         'sport' => $sport,
-        //         'districts' => $districts
-        //     ]);
-    }
+        //         'districts' => $districts,
+        //         'datas' => $datas
+        //         ]);
+            }
+            
+            $resp = $apiService->getClub();
+            $records = $resp['records'];    
 
-    $districts = array('d31000' => 31000,'d31100'=>31100, 'd31200' => 31200);
+            foreach ($records as $key => $club) {
+                $id = $club['recordid'];
+                $club = $club;
+                $fields = $club['fields'];
+                // dump($fields);
+                $discipline = $fields["discipline"];
+                $name = $fields["asso_nom"];
 
-    // $response = $httpClient->request(
-    //     'GET', 
-    //     'https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=annuaire-des-associations-et-clubs-sportifs&q=&rows=1000'); 
-    //     $clubs = $response->toArray();
+                if (isset($fields["uf_cp"])) {
+                    $postal = $fields["uf_cp"];
+                }
+                // dump($discipline);
 
+                $sportClub = new SportClub();
+                $sportClub->setName($name);
+                $sportClub->setDiscipline($discipline);
+                $sportClub->setPostalCode($postal);
+
+                $manager->persist($sportClub);
+                $manager->flush();
+            }
+            
+            
+   
         return $this->render('api/index.html.twig', [
             'form' => $form->createView(),
-            // 'clubs' => $clubs,
-            'd31100' => $districts['d31000'],
-            'districts' => $districts
+            'records' => $records,
+            'fields' => $fields,
+            'discipline' => $discipline
         ]);
     }
+
+    // /**
+    //  *  @Route("/", name="home")
+    //  */
+    // public function home()
+    // {
+    //     return $this->render('api/index.html.twig', [
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 
 
     /**

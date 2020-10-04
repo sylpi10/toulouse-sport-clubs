@@ -13,17 +13,17 @@ class ClubApiService{
         $this->client = $client;
     }
 
-    public function getClub($code)
+    public function getClub()
     {
         $response = $this->client->request(
             'GET',
-            'https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=annuaire-des-associations-et-clubs-sportifs&q=uf_cp%3D' .$code. '&rows=1000'
+            'https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=annuaire-des-associations-et-clubs-sportifs&q=&rows=1000'
         );
 
         $statusCode = $response->getStatusCode();
         $contentType = $response->getHeaders(false)['content-type'][0];
-        $content = $response->getContent(false);
-        $content = $response->toArray(false);
+        $content = $response->getContent();
+        $content = $response->toArray();
         return $content;
     }
 }
