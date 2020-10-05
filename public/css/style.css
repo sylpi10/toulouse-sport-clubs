@@ -2,7 +2,6 @@
 @font-face{
     font-family: "freshman"; 
     src: url('../fonts/Freshman.ttf'); 
-    font-family: "sketchy";
  }
 @font-face{
     font-family: "sketchy";
@@ -102,6 +101,7 @@ svg{
 .hidden{
     display: none;
 }
+
 
 /* district nums */
 tspan{

@@ -9,13 +9,14 @@
         <h2>Trouve un club de sport dans ton quartier ! </h2>
 
         <main class="main">
+
+
     
              {% include "texts.html.twig" %}
              {% include "map.html.twig" %}
 
-            <div class="form">
+            {# <div class="form">
                 {{form_start(form)}}
-                {# {{form_row(form.code)}} #}
                 {{form_row(form.sport)}}
 
                 <div class="hidden">
@@ -25,15 +26,28 @@
                     {{form_row(form.31300)}}
                     {{form_row(form.31400)}}
                     {{form_row(form.31500)}}
-                </div>
+                </div> #}
 
-                <a href="{{path('api')}}">
+                {{form_start(form)}}
+                    {{form_row(form.q)}}
+                    {{form_row(form.cat)}}
+                    <div class="postals">
+                        {{form_row(form.postals)}}
+                    </div>
+                {# <a href=""> #}
                     <input type="submit" value="Filter" class="text-white btn btn-primary">
-                </a>
+                {# </a> #}
                 {{form_end(form)}}
             </div>
      
         </main>
+
+        <div id="results" class="bg-light">
+            {% for club in filters %}
+               <h2>  {{club.name}}</h2>
+               <h2>  {{club.discipline}}</h2>
+            {% endfor %}
+        </div>
 
 {# // end container-fluid #}
 </div>

@@ -27,10 +27,6 @@ class SportClub
      */
     private $discipline;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $postalCode;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -106,6 +102,11 @@ class SportClub
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=PostalCode::class, inversedBy="sportClubs")
+     */
+    private $postalCodes;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,17 +136,6 @@ class SportClub
         return $this;
     }
 
-    public function getPostalCode(): ?int
-    {
-        return $this->postalCode;
-    }
-
-    public function setPostalCode(?int $postalCode): self
-    {
-        $this->postalCode = $postalCode;
-
-        return $this;
-    }
 
     public function getCategory(): ?string
     {
@@ -322,6 +312,18 @@ class SportClub
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getPostalCodes(): ?PostalCode
+    {
+        return $this->postalCodes;
+    }
+
+    public function setPostalCodes(?PostalCode $postalCodes): self
+    {
+        $this->postalCodes = $postalCodes;
 
         return $this;
     }
