@@ -192,25 +192,27 @@ tspan{
     font-size: 1.5rem !important;
 }
 
-
 .even{
     transform: skewY(12deg);
 }
-
 .odd{
     transform: skewY(-12deg);
 }
+
+
 .specifics{
     padding-bottom: 200px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    width: 100%;
+     width: 80%;
+     align-items: center;
+     margin: auto;
 }
 .specifics i{
     font-size: 1.5rem !important;
 }
 .specifics p {
-    height: 40px;
-    width: 320px;
+    height: 60px;
+    width: 340px;
 }

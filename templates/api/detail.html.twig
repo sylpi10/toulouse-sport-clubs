@@ -5,46 +5,35 @@
 {% block body %}
 <main class="container details-page">
 
-    {% for key, item in club.records %}
-        {% if item.recordid == id %}
         <div class="only-club-detail">
 
-        <div class="name-discipline">
-            <div class="pennant">
-                <h2 class="detail-title">{{item.fields.asso_nom}}</h2>
-                <h3 class="my-3">
-                    {{item.fields.discipline|upper}}
-                </h3>
-            </div>
-            <div class="picture">
-                {% if "judo" in item.fields.discipline|lower
-                    or "karate" in item.fields.discipline|lower
-                    or "box" in item.fields.discipline|lower
-                    or "arnis" in item.fields.discipline|lower
-                    or "kwon" in item.fields.discipline|lower
-                    or "jiu" in item.fields.discipline|lower
-                    or "self" in item.fields.discipline|lower
-                    or "krav" in item.fields.discipline|lower
-                 %}
-                 <img src="{{asset('images/karate.svg')}}" alt="sport pic" width="240">
-                 {% elseif "foot" in item.fields.discipline|lower
-                 or "hand" in item.fields.discipline|lower
-                 or "rugby" in item.fields.discipline|lower
-                 or "ball" in item.fields.discipline|lower
-                 or "volley" in item.fields.discipline|lower
-                 or "basket" in item.fields.discipline|lower
-                 %}
-                 <img src="{{asset('images/ball.png')}}" alt="sport pic" width="240">
+            <div class="name-discipline">
+                <div class="pennant">
+                    <h2 class="detail-title">{{club.name}}</h2>
+                    <h3 class="my-3">
+                        {{club.discipline|upper}}
+                    </h3>
+                </div>
+                <div class="picture">
+                    {% if "Combat" in club.category %}
+                    <img src="{{asset('images/karate.svg')}}" alt="sport pic" width="240">
 
-                {% endif %}
+                    {% elseif "sports collectifs" in club.category|lower %}
+                    <img src="{{asset('images/ball.png')}}" alt="sport pic" width="240">
+                    </h4>
+                    {% endif %}
+                    <hr>
+                    <h4>{{club.category}}</h4>
+                </div>
             </div>
-        </div>
           
 
                         <hr class="w-75 even">
                         
-                        <h4><img src="{{asset('images/stadium.png')}}" alt="stadium" width="90" >
-                            {{item.fields.complexe ? item.fields.complexe : ''}} </h4>
+                        {% if club.complex %}
+                             <h4><img src="{{asset('images/stadium.png')}}" alt="stadium" width="90" >
+                            {{club.complex}} </h4>
+                        {% endif %}
                             
                             <hr class="w-75 odd">
                             <div class="row w-50 m-auto">
@@ -52,104 +41,110 @@
                                     <i class="fas fa-map-marked-alt"></i>
                                 </div>
                                 <div class="col-8">
-                                    <p> {{item.fields.rue_libelle ? item.fields.rue_libelle : ''}} </p>
-                                    <p> {{item.fields.quartiers ? item.fields.quartiers : ''}} </p>
-                                    <p>CP: {{item.fields.uf_cp}}</p>
+                                    <p> {{club.address ? club.address : ''}} </p>
+                                    <p> {{club.district ? club.district : ''}} </p>
+                                    <p>CP: {{club.postalCode}}</p>
                                 </div>
                             </div>
                             <hr class="w-75 even">
                             
-                        {% if item.fields.pers_internet %}
+                        {% if club.weblink %}
                             <div class="web-link">
                                 <i class="fas fa-location-arrow arrow1"></i>
-                                <a href="{{"http://" ~ item.fields.pers_internet}}" class="" target="_new">
-                                    {{item.fields.pers_internet}}
+                                <a href="{{"http://" ~ club.weblink}}" class="" target="_new">
+                                    {{club.weblink}}
                                 </a>
                                 <i class="fas fa-location-arrow arrow2"></i>
                             </div>    
                         {% endif %}
 
                         <div class="specifics shadow">
+
                             <p>
                                 Séniors:
-                                {% if item.fields.seniors is same as("Oui") %}
+                                {{club.seniors}}
+                                {% if club.seniors is defined %}
+                                    {% if club.seniors %}
                                     <i class="fas fa-check-circle text-success"></i>
-                                {% else %}
+                                    {% elseif not club.seniors %}
                                     <i class="fas fa-times text-danger"></i>
-                                {% endif %} 
-                            
+                                    {% endif %}
+                                    {% else %}
+                                    <span class="text-dark"> <i class="far fa-question-circle"></i></span>
+                                {% endif %}
                             </p>
+
                             <p>
                                 Adultes:
-                                {% if item.fields.adultes is same as("Oui") %}
-                                 <i class="fas fa-check-circle text-success"></i>
+                                    {% if club.adults %}
+                                    <i class="fas fa-check-circle text-success"></i>
+                                    {% else %}
+                                    <i class="fas fa-times text-danger"></i>
+                                    {% endif %}
+                               
+                            </p>
+
+                            <p>
+                                Juniors 16-20 ans:
+                                    {% if club.j16to20 %}
+                                    <i class="fas fa-check-circle text-success"></i>
+                                    {% else %}
+                                    <i class="fas fa-times text-danger"></i>
+                                    {% endif %}
+                            </p>
+
+                             <p>
+                                Juniors 12-15 ans:
+                                {% if club.j12to15 %}
+                                <i class="fas fa-check-circle text-success"></i>
                                 {% else %}
-                                   <i class="fas fa-times text-danger"></i>
+                                <i class="fas fa-times text-danger"></i>
                                 {% endif %}
                             </p>
                             <p>
-                                Juniors 16-20 ans:
-                                {% if item.fields.juniors16_20ans is same as("Oui") %}
-                                     <i class="fas fa-check-circle text-success"></i>
+                                Juniors 6-12 ans:
+                                    {% if club.j6to12 %}
+                                    <i class="fas fa-check-circle text-success"></i>
+                                    {% else %}
+                                    <i class="fas fa-times text-danger"></i>
+                                    {% endif %}
+                              
+                            </p>
+                            <p>
+                                Juniors 3-6 ans:
+                                    {% if club.j3to6 %}
+                                    <i class="fas fa-check-circle text-success"></i>
+                                    {% else %}
+                                    <i class="fas fa-times text-danger"></i>
+                                    {% endif %}
+                             
+                            </p>
+                            <p>
+                                Handicapés:
+                                {{club.handicap}}
+                                {% if club.handicap is defined  %}
+                                    {% if club.handicap %}
+                                    <i class="fas fa-check-circle text-success"></i>
+                                    {% else %}
+                                    <i class="fas fa-times text-danger"></i>
+                                    {% endif %}
                                 {% else %}
-                                     <i class="fas fa-times text-danger"></i>
+                                <span class="text-dark"> <i class="far fa-question-circle"></i></span>
                                 {% endif %}
                             </p>
-                                {% for key, val in item.fields %}
-                                    {% if key in("12_15ans") %}
-                                    <p>
-                                        12-15 ans:
-                                        {% if val is same as("Oui") %}
-                                        <i class="fas fa-check-circle text-success"></i>
-                                        {% else %}
-                                        <i class="fas fa-times text-danger"></i>
-                                        {% endif %}
-                                    </p>
-                                        {% endif %}
-                                    {% if key in("6_12ans") %}
-                                    <p>
-                                        6-12 ans:
-                                        {% if val is same as("Oui") %}
-                                        <i class="fas fa-check-circle text-success"></i>
-                                        {% else %}
-                                        <i class="fas fa-times text-danger"></i>
-                                        {% endif %}
-                                    </p>
-                                        {% endif %}
-                                    {% if key in "3_6ans" %}
-                                    <p>
-                                        3-6 ans:
-                                        {% if val is same as("Oui") %}
-                                        <i class="fas fa-check-circle text-success"></i>
-                                        {% else %}
-                                        <i class="fas fa-times text-danger"></i>
-                                        {% endif %}
-                                    </p>
-                                    {% endif %}
-                                {% endfor %}
-
-                                <p>
-                                    Handicapés:
-                                    {% if item.fields.handicapes is same as("Oui") %}
-                                     <i class="fas fa-check-circle text-success"></i>
-                                    {% else %}
-                                       <i class="fas fa-times text-danger"></i>
-                                    {% endif %}
-                                </p>
                                 <p>
                                     Corpo:
-                                    {% if item.fields.corpo is same as("Oui") %}
-                                     <i class="fas fa-check-circle text-success"></i>
-                                    {% else %}
-                                       <i class="fas fa-times text-danger"></i>
-                                    {% endif %}
-                                </p>
+                                        {% if club.corpo %}
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        {% else %}
+                                        <i class="fas fa-times text-danger"></i>
+                                        {% endif %}
+                                  
+                                </p>   
                         </div>
                    
 
-                    </div>
-        {% endif %}
-    {% endfor %} 
+            </div>
 </main>
 
 {% endblock %}

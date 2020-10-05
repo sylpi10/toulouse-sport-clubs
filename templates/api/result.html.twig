@@ -6,40 +6,45 @@
 
 
 <div class="container results">
-{% for key, val in datas %}
+{# {% for key, val in datas %} #}
 
-{% if val == 1 %}
+{# {% if val == 1 %} #}
+
     
     <h2 class="">  Clubs de {{sport}} dans le {{key}} :</h2>
+        <main class="club-list">
+            {# {% for club in clubs.records %} #}
+            
+                {# add filter from discipline input form  #}
+                {# {% if sport|lower in club.fields.discipline|lower %} 
+                    {% if key == club.fields.uf_cp %}
+
+                    <div class="club-detail">
+                        <h3> <a href="{{path('detail', {'id': club.recordid})}}"> 
+                            {{club.fields.asso_nom}} </a>
+                        </h3>
+                        <h4>{{club.fields.discipline|title}}</h4>
+                        {% if club.fields.quartiers %}
+                        <p> {{club.fields.quartiers}} </p>
+                        {% endif %}
+                        <p> {{club.fields.uf_cp}}</p>
+                    </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %} #}
+
+            {% for club in clubs %}
+                {% if sport|lower in club.discipline %}
+                   <h2> <a href="{{path('detail', {'id': club.id})}}"> {{club.name}} </a> </h2>
+                {% endif %}
+            {% endfor %}
 
 
-                    <main class="club-list">
-                        {% for club in clubs.records %}
-                        
-                            {# add filter from discipline input form  #}
-                            {% if sport|lower in club.fields.discipline|lower %} 
-                                {% if key == club.fields.uf_cp %}
+        </main>
 
-                                <div class="club-detail">
-                                    <h3> <a href="{{path('detail', {'id': club.recordid})}}"> 
-                                        {{club.fields.asso_nom}} </a>
-                                    </h3>
-                                    <h4>{{club.fields.discipline|title}}</h4>
-                                    {% if club.fields.quartiers %}
-                                    <p> {{club.fields.quartiers}} </p>
-                                    {% endif %}
-                                    <p> {{club.fields.uf_cp}}</p>
-                                </div>
-                                
-                                {% endif %}
-                                
-                            {% endif %}
-                                
-                        {% endfor %}
-                    </main>
 
-        {% endif %}
-    {% endfor %}
+        {# {% endif %} #}
+    {# {% endfor %} #}
                 
 </div>
 
