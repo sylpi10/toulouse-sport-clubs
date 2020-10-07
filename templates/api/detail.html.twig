@@ -3,14 +3,17 @@
 {% block title %}Clubs sport{% endblock %}
 
 {% block body %}
-<main class="container details-page">
+<div class="detail-body">
+
+
+<main class=" details-page">
 
         <div class="only-club-detail">
 
-            <div class="name-discipline">
+            <div class="name-and-discipline">
                 <div class="pennant">
                     <h2 class="detail-title">{{club.name}}</h2>
-                    <h3 class="my-3">
+                    <h3 class="">
                         {{club.discipline|upper}}
                     </h3>
                 </div>
@@ -31,7 +34,7 @@
                         <hr class="w-75 even">
                         
                         {% if club.complex %}
-                             <h4><img src="{{asset('images/stadium.png')}}" alt="stadium" width="90" >
+                             <h4><img src="{{asset('images/stadium2.png')}}" alt="stadium" width="76" >
                             {{club.complex}} </h4>
                         {% endif %}
                             
@@ -43,18 +46,16 @@
                                 <div class="col-8">
                                     <p> {{club.address ? club.address : ''}} </p>
                                     <p> {{club.district ? club.district : ''}} </p>
-                                    <p>CP: {{club.postalCode}}</p>
+                                    <p>CP: {{club.postalCodes}}</p>
                                 </div>
                             </div>
                             <hr class="w-75 even">
                             
-                        {% if club.weblink %}
+                        {% if club.weblink != '' %}
                             <div class="web-link">
-                                <i class="fas fa-location-arrow arrow1"></i>
                                 <a href="{{"http://" ~ club.weblink}}" class="" target="_new">
                                     {{club.weblink}}
                                 </a>
-                                <i class="fas fa-location-arrow arrow2"></i>
                             </div>    
                         {% endif %}
 
@@ -146,5 +147,5 @@
 
             </div>
 </main>
-
+</div>
 {% endblock %}

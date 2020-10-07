@@ -42,17 +42,8 @@ public function findSearch(SearchData $search): array
             ->andWhere('club.category LIKE :cat')
             ->setParameter('cat', "%{$search->cat}%");
     }
-    // if (!empty($search->d31000)) {
-    //     $query = $query
-    //         ->andWhere('postal.number LIKE :d31000')
-    //         ->setParameter('d31000', $search->d31000);
-    // }
-    // if (!empty($search->d31400)) {
-    //     $query = $query
-    //         ->andWhere('postal.number = (:31400)')
-    //         ->setParameter('d31400', $search->d31400);
-    // }
 
+    // not working ?? ...
     if (!empty($search->postalCodes)) {
         $query = $query
             ->andWhere('postal.number in (:postalCodes)')

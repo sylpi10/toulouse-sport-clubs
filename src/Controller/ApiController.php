@@ -33,23 +33,16 @@ class ApiController extends AbstractController
         $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
             
-            $formDatas = $form->getData();
             $filterclubs = $repo->findSearch($data);
-            // $d31000 = $form->get('d31000')->getName();
-            // $d31100 = $form->get('d31100')->getName();
-            // $d31400 = $form->get('d31400')->getName();
-
-            // $postals = [$d31000, $d31100, $d31400];
-            // dd($data);
+            $sport = $form->get('q')->getData();
             $postals = $form->get('postals')->getData();
 
 
             return $this->render('api/result.html.twig', [
                     'clubs' => $filterclubs,
                     'form' => $form->createView(),
-                    // 'districts' => $districts,
-                    'datas' => $formDatas,
-                    'postals' =>$postals
+                    'postals' =>$postals,
+                    'sport' => $sport
                     ]);
         }
 
@@ -75,26 +68,33 @@ class ApiController extends AbstractController
 // if (isset($fields["uf_cp"])) {
 // $postal = $fields["uf_cp"];
 // }
-// if (isset($fields["complexe"])) {
-// $complex = $fields["complexe"];
-// }
+//     if (isset($fields["complexe"]) && !empty($fields["complexe"])) {
+//             $complex = $fields["complexe"];
+//         }else{
+//             $complex = null;
+//     }
+
 // if (isset($fields["rue_libelle"])) {
 // $street = $fields["rue_libelle"];
 // }
-// if (isset($fields["quartiers"])) {
-// $district = $fields["quartiers"];
-// }
-// if (isset($fields["seniors"])) {
-// if ($fields["seniors"] == "Oui") {
-// $seniors = true;
+
+// if (isset($fields["quartiers"]) && !empty($fields["quartiers"])) {
+//     $district = $fields["quartiers"];
 // }else{
-// $seniors = false;
+//     $district = null;
 // }
+
+// if (isset($fields["seniors"])) {
+//     if ($fields["seniors"] == "Oui") {
+//      $seniors = true;
+//     }else{
+//     $seniors = false;
+//     }
 // }
 // if (isset($fields["adultes"])) {
-// if ($fields["adultes"] =="Oui") {
-// $adults = true;
-// }else{
+//     if ($fields["adultes"] =="Oui") {
+//     $adults = true;
+//     }else{
 // $adults = false;
 // }
 // }
@@ -147,8 +147,10 @@ class ApiController extends AbstractController
 // $handicap = false;
 // }
 // }
-// if (isset($fields["pers_internet"])) {
-// $weblink = $fields["pers_internet"];
+// if (isset($fields["pers_internet"]) &&!empty($fields["pers_internet"]) ) {
+//         $weblink = $fields["pers_internet"];
+//     }else{
+//         $weblink = null;
 // }
 
 // // dump($discipline);
@@ -157,51 +159,78 @@ class ApiController extends AbstractController
 
 // $sportClub->setName($name);
 // $sportClub->setDiscipline(strtolower($discipline));
-// $sportClub->setComplex($complex);
+
+// if ($complex) {
+//     $sportClub->setComplex($complex);
+// }
 
 // // $postalCode->setNumber($postal);
 // if ($postal == 31000) {
-//     $postalCode1->setNumber(31000);
-//     $sportClub->setPostalCodes($postalCode1);
+// $postalCode1->setNumber(31000);
+// $sportClub->setPostalCodes($postalCode1);
 // }
 // if ($postal == 31100) {
-//     $postalCode2->setNumber(31100);
-//     $sportClub->setPostalCodes($postalCode2);
+// $postalCode2->setNumber(31100);
+// $sportClub->setPostalCodes($postalCode2);
 // }
-//     if ($postal == 31170) {
-//         $postalCode3->setNumber(31170);
-//         $sportClub->setPostalCodes($postalCode3);
-//     }
+// if ($postal == 31170) {
+// $postalCode3->setNumber(31170);
+// $sportClub->setPostalCodes($postalCode3);
+// }
 // if ($postal == 31200 ) {
-//     $postalCode4->setNumber(31200);
-//     $sportClub->setPostalCodes($postalCode4);
+// $postalCode4->setNumber(31200);
+// $sportClub->setPostalCodes($postalCode4);
 // }
 // if ($postal == 31300) {
-//     $postalCode5->setNumber(31300);
-//     $sportClub->setPostalCodes($postalCode5);
+// $postalCode5->setNumber(31300);
+// $sportClub->setPostalCodes($postalCode5);
 // }
 // if ($postal == 31400) {
-//     $postalCode6->setNumber(31400);
-//     $sportClub->setPostalCodes($postalCode6);
+// $postalCode6->setNumber(31400);
+// $sportClub->setPostalCodes($postalCode6);
 // }
 // if ($postal == 31500) {
-//     $postalCode7->setNumber(31500);
-//     $sportClub->setPostalCodes($postalCode7);
+// $postalCode7->setNumber(31500);
+// $sportClub->setPostalCodes($postalCode7);
+// }
+// if ($street) {
+//     $sportClub->setAddress($street);
+// }
+// if ($district) {
+//     $sportClub->setDistrict($district);
+// }
+// if ($seniors) {
+//     $sportClub->setSeniors($seniors);
+// }
+// if ($adults) {
+//     $sportClub->setAdults($adults);
+// }
+// if ($j16_20) {
+//     # code...
+//     $sportClub->setJ16to20($j16_20);
+// }
+// if ($j12_15) {
+//     $sportClub->setJ12to15($j12_15);
+// }
+// if ($j6_12) {
+//     $sportClub->setJ6to12($j6_12);
+// }
+// if ($j3_6) {
+//     $sportClub->setJ3to6($j3_6);
+// }
+// if ($j0_3) {
+//     $sportClub->setJ0to3($j0_3);
+// }
+// if ($handicap) {
+//     $sportClub->setHandicap($handicap);
+// }
+// if ($corpo) {
+//     $sportClub->setCorpo($corpo);
 // }
 
-
-// $sportClub->setAddress($street);
-// $sportClub->setDistrict($district);
-// $sportClub->setSeniors($seniors);
-// $sportClub->setAdults($adults);
-// $sportClub->setJ16to20($j16_20);
-// $sportClub->setJ12to15($j12_15);
-// $sportClub->setJ6to12($j6_12);
-// $sportClub->setJ3to6($j3_6);
-// $sportClub->setJ0to3($j0_3);
-// $sportClub->setHandicap($handicap);
-// $sportClub->setCorpo($corpo);
-// $sportClub->setWeblink($weblink);
+// if ($weblink) {
+//     $sportClub->setWeblink($weblink);
+// }
 // $sportClub->setCreatedAt(date_create("now"));
 
 // if (str_contains(strtolower($discipline), "foot") 
@@ -351,7 +380,6 @@ class ApiController extends AbstractController
 
 // $manager->persist($sportClub);
 
-
 // }
 // $manager->persist($postalCode1);
 // $manager->persist($postalCode2);
@@ -361,9 +389,6 @@ class ApiController extends AbstractController
 // $manager->persist($postalCode6);
 // $manager->persist($postalCode7);
 // $manager->flush();
-
-
-
                 
         // $clubs = $repo->findAll();
         return $this->render('api/index.html.twig', [

@@ -7,21 +7,26 @@
     font-family: "sketchy";
     src: url('../fonts/CabinSketch-Regular.ttf'); 
  }
+html{
+    height: 100%;
+}
 
 body{
     padding: 0;margin: 0;
     box-sizing: border-box;
     background: url("../images/back.jpg") no-repeat;
-    color: rgb(29, 12, 128);
+    color: #1d0c80;
     background-size: cover;
     font-family: "sketchy";
     text-align: center;
     background-attachment: fixed;
+    height: 100%;
 }
 
 .container-fluid{
     background-color: rgba(255,255,255,.65);
-    height: 100vh;
+    /* height: 100%; */
+    padding-top: 100px;
 }
 .container{
     background-color: rgba(255,255,255,.65);
@@ -29,84 +34,146 @@ body{
 }
 
 header{
-    height: 70px;
-    background-color: #f55;
+    /* height: 70px; */
+    background-color: #f22;
     text-align: center;
     display: flex;
-    justify-content: space-around;
+    justify-content:flex-start;
     align-items: center;
     position: fixed;
     width: 100%;
     color: #fff;
+    flex-wrap: wrap-reverse;
     z-index: 999;
+    margin-top: 0;
+    padding: 15px;
 }
 header h1{
     font-family: "freshman";
     font-size: 2rem;
-    display: flex;
+    width: 75%;
 }
-
+header a{
+    width: 180px;
+}
 h2{
     color: #333;
     z-index: 999;
     font-size: 1.6rem;
 }
-/* .search-results h2{
-    padding: 20px;
-} */
+
 
 /* container of districts list, map and form */
 .main{
-    display: -webkit-flex;
-    margin: auto;
-    display: -ms-flex;
+    margin:-80px auto auto auto;
     display: flex;
     justify-content: space-between;
-    height: 75vh;
+    /* height: 100%; */
+    height: 100vh;
     width: 84%;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 svg{
-    transform: scale(1.3);
-    /* margin-top: 8%; */
+    transform: scale(1.35);
     height: 400px;
-    width: 33%;
+    /* width: 33%; */
     z-index: 2;
-    position: relative;
 }
 
 .district:hover{
-    fill: #ccc;
+    fill: #88ACE0;
     cursor: pointer;
 }
 
 .districts-text{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+.districts-text .text{
     text-align: left;
-    width: 30%;
 }
 .districts-text h3{
+    text-align: left !important;
     color: #333;
     font-size: 1.4rem;
+    /* width: 80%; */
+    margin: auto;
 }
-.districts-text ul{
+.districts-text label:hover{
+    cursor: pointer;
+}
+.districts-text .text ul{
     text-align: left;
     transform: scaleY(0);
-    height: 0;
+    height: auto;
     transition: all 0.6s ease;
 }
 .districts-text ul li{
-    margin-top:10px;
+    margin-top:4px;
 }
+
 .hidden{
     display: none;
 }
-
 
 /* district nums */
 tspan{
     color: #333 !important;
     font-size: .8rem;
+}
+
+.form{
+    width: 25%;
+    float: right;
+}
+
+
+@media screen and (max-width: 1100px) {
+
+    .districts-text{
+        display: none;
+    }
+    svg{
+        /* margin-top: 80px; */
+        margin-left: 50px;
+    }
+    
+    .form{
+       width: 40% !important;
+       /* min-width: 280px; */
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .container-fluid{
+        padding-top: 130px;
+    }
+    header h1{
+        font-size: 1.7rem;
+    }
+    .main{
+        flex-direction: column;
+        justify-content: center;
+        height: 120%;
+        padding-bottom: 30px;
+        margin-top: 50px;
+    }
+    svg{
+        transform: scale(1.2);
+        margin: auto;
+        padding-top: 20px;
+    }
+    .form{
+        width: 74% !important;
+        margin-top: 20px;
+    }
+    header{
+        justify-content: center;
+    }
 }
 
 
@@ -121,42 +188,85 @@ tspan{
     flex-wrap: wrap;
     margin-top: 40px;
 }
+.club-list a {
+    text-decoration: none;
+}
 
 .club-detail{
     width: 300px;   
-    padding:30px 12px;
-    margin: 8px auto;
-    box-shadow: 2px 2px 2px #ccc, -2px -2px 2px #ccc;
-    background: url("../images/fanion.jpg") no-repeat;
+    /* margin: 8px auto; */
+    padding: 20px;
+    background: url("../images/fanion.png") no-repeat center;
     background-size: cover;
+    /* height: 320px; */
+    min-height: 320px;
+}
+.club-detail h3{
+    width: 90%;
+    margin: auto;
+    padding-top: 20px;
+}
+.club-detail h4{
+    background-color: rgb(255, 36, 36, .6);
+    color: #fff;
+    margin: 0;
+    padding:12px 0;
+    width: 100%;
+}
+.club-detail .postal{
+    margin-bottom: 20px;
+}
+.club-detail:hover{
+    transform: scale(1.05);
+    transition: transform .6s ease;
+}
+/* details page*/
+.detail-body {
+    width: 100%;
+    padding: 0;margin: 0;
+    /* background: url("../images/back2.jpg") no-repeat; */
+}
+.details-page{
+    width: 72% !important;
+    background-color: rgba(255,255,255,.65);
+    margin: auto;
 }
 
-/* details page*/
-.name-discipline{
-    display: flex;
-    justify-content: space-around;
-    padding-top: 66px;
-    align-items: flex-end;
-}
-.pennant{
-    background: url("../images/fanion.jpg") no-repeat;
-    background-size: cover;
-    width: 340px;
-    height: 300px;
-    text-align: center;
-}
-.pennant h2, h3{
-    width: 100%;
-    text-align: center;
-}
-.pennant h3{
-    padding-top: 60px;
-    color: #fff;
-}
 .only-club-detail{
     width: 90%;
     margin: auto;
 }
+
+.name-and-discipline{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding-top: 80px;
+    align-items: flex-end;
+}
+.pennant{
+    background: url("../images/fanion.png") no-repeat;
+    background-size: cover;
+    width: 380px;
+    min-height: 300px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.pennant h2, h3{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    margin-top: -55px;
+    font-size: 2.1rem;
+}
+.pennant h3{
+    color: #fff;
+    background-color: rgb(255, 34, 34, .6);
+    margin-top: 20px;
+    padding: 8px 0;
+}
+
 
 .only-club-detail i{
     font-size: 2.8rem;
