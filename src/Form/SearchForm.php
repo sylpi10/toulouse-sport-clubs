@@ -32,7 +32,7 @@ class SearchForm extends AbstractType
             ])
             ->add('categories', EntityType::class, [
                 'label' => "Catégorie",
-                'placeholder' => "Ex Sports de Combat",
+                'placeholder' => "Ex: Sports de Combat",
                 'required' => false,
                 'class' => Category::class,
                 // 'expanded' => true,

@@ -24,7 +24,7 @@ class SearchData
      /**
       * @var PostalCode
       */
-      public $postals = [];
+      public $postals;
 
       /**
        * @var Category

@@ -184,7 +184,7 @@ tspan{
 
 /*results*/
 .results-body{
-    background: url("../images/categ/sports-de-montagne.jpg");
+    background: url("../images/cliff.jpg") center left;
     background-attachment: fixed;
     min-height: 100vh;
 }
@@ -212,7 +212,7 @@ tspan{
 .club-detail{
     width: 320px;   
     padding: 20px;
-    margin-bottom: 12px;
+    margin-bottom: 26px;
     /* background: url("../images/fanion.png") no-repeat center; */
     /* background-color: rgba(0,0,0,.6); */
     background-color: rgba(255,255,255,.85);
@@ -309,6 +309,11 @@ tspan{
 }
 .equestres{
     background: url("../images/categ/sports-equestres.jpg") no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.athlétisme{
+    background: url("../images/categ/athle.jpg") no-repeat bottom;
     background-attachment: fixed;
     background-size: cover;
 }

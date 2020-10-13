@@ -3,7 +3,7 @@
 {% block title %}Clubs sport{% endblock %}
 
 {% block body %}
-<div class="detail-body {{club.category|lower}}">
+<div class="detail-body {{club.categories.name|lower}}">
 
 <main class="details-page">
 
@@ -12,6 +12,7 @@
                 <div class="club-name">
                     <h2 class="detail-title">{{club.name}}</h2>
                     <h3>{{club.discipline|upper}}</h3> 
+                    <h3>{{club.categories.name}}</h3>
                 </div>
 
                 {# club address details  #}

@@ -28,8 +28,9 @@ public function findSearch(SearchData $search): array
 {
    $query = $this
     ->createQueryBuilder("club")
-    ->select("club", 'categ', 'postal')
+    ->select('club', 'categ')
     ->join('club.categories', 'categ')
+    ->select('club', 'postal')
     ->join('club.postalCodes', 'postal');
 
     if (!empty($search->q)) {
@@ -45,7 +46,7 @@ public function findSearch(SearchData $search): array
     }
 
     // not working ... -> value not set in the map ??
-    if (!empty($search->postalCodes)) {
+    if (!empty($search->postals)) {
         $query = $query
             ->andWhere('postal.id in (:postalCodes)')
             ->setParameter('postalCodes', $search->postals);
