@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Data\SearchData;
+use App\Entity\Category;
 use App\Entity\PostalCode;
 use App\Form\SearchForm;
 use App\Entity\SportClub;
@@ -57,6 +58,21 @@ class ApiController extends AbstractController
 // $postalCode6 = new PostalCode();
 // $postalCode7 = new PostalCode();
 
+// $categ1 = new Category();
+// $categ2 = new Category();
+// $categ3 = new Category();
+// $categ4 = new Category();
+// $categ5 = new Category();
+// $categ6 = new Category();
+// $categ7 = new Category();
+// $categ8 = new Category();
+// $categ9 = new Category();
+// $categ10 = new Category();
+// $categ11 = new Category();
+// $categ12 = new Category();
+// $categ13 = new Category();
+// $categ14 = new Category();
+
 // foreach ($records as $key => $club) {
 // $id = $club['recordid'];
 // $club = $club;
@@ -65,8 +81,10 @@ class ApiController extends AbstractController
 // $discipline = $fields["discipline"];
 // $name = $fields["asso_nom"];
 
-// if (isset($fields["uf_cp"])) {
-// $postal = $fields["uf_cp"];
+// if (isset($fields["uf_cp"]) && !empty($fields["uf_cp"])) {
+//     $postal = $fields["uf_cp"];
+// }else{
+//     $postal = null;
 // }
 //     if (isset($fields["complexe"]) && !empty($fields["complexe"])) {
 //             $complex = $fields["complexe"];
@@ -74,8 +92,10 @@ class ApiController extends AbstractController
 //             $complex = null;
 //     }
 
-// if (isset($fields["rue_libelle"])) {
-// $street = $fields["rue_libelle"];
+// if (isset($fields["rue_libelle"]) && !empty($fields["rue_libelle"])) {
+//     $street = $fields["rue_libelle"];
+// }else{
+//     $street = null;
 // }
 
 // if (isset($fields["quartiers"]) && !empty($fields["quartiers"])) {
@@ -85,16 +105,16 @@ class ApiController extends AbstractController
 // }
 
 // if (isset($fields["seniors"])) {
-//     if ($fields["seniors"] == "Oui") {
-//      $seniors = true;
-//     }else{
-//     $seniors = false;
-//     }
+// if ($fields["seniors"] == "Oui") {
+// $seniors = true;
+// }else{
+// $seniors = false;
+// }
 // }
 // if (isset($fields["adultes"])) {
-//     if ($fields["adultes"] =="Oui") {
-//     $adults = true;
-//     }else{
+// if ($fields["adultes"] =="Oui") {
+// $adults = true;
+// }else{
 // $adults = false;
 // }
 // }
@@ -147,6 +167,7 @@ class ApiController extends AbstractController
 // $handicap = false;
 // }
 // }
+
 // if (isset($fields["pers_internet"]) &&!empty($fields["pers_internet"]) ) {
 //         $weblink = $fields["pers_internet"];
 //     }else{
@@ -206,7 +227,6 @@ class ApiController extends AbstractController
 //     $sportClub->setAdults($adults);
 // }
 // if ($j16_20) {
-//     # code...
 //     $sportClub->setJ16to20($j16_20);
 // }
 // if ($j12_15) {
@@ -240,7 +260,8 @@ class ApiController extends AbstractController
 // OR str_contains(strtolower($discipline), "basket")
 // OR str_contains(strtolower($discipline), "baseball")
 // ) {
-// $sportClub->setCategory("Sports Collectifs");
+//     $categ1->setName("Sports Collectifs");
+//     $sportClub->setCategories($categ1);
 // }
 // elseif (str_contains(strtolower($discipline), "karat")
 // OR str_contains(strtolower($discipline), "thai")
@@ -264,7 +285,8 @@ class ApiController extends AbstractController
 // OR str_contains(strtolower($discipline), "escrime")
 // OR str_contains(strtolower($discipline), "kalarippayat")
 // ) {
-// $sportClub->setCategory("Sports de Combat");
+//     $categ2->setName("Sports de Combat");
+//     $sportClub->setCategories($categ2);
 // }
 // elseif (str_contains(strtolower($discipline), "skate")
 // OR str_contains(strtolower($discipline), "ski")
@@ -276,7 +298,8 @@ class ApiController extends AbstractController
 // OR str_contains(strtolower($discipline), "voile")
 // OR str_contains(strtolower($discipline), "hockey")
 // ){
-// $sportClub->setCategory("Sports de Glisse");
+//     $categ3->setName("Sports de Glisse");
+//     $sportClub->setCategories($categ3);
 // }
 // elseif (str_contains(strtolower($discipline), "piscine")
 // OR str_contains(strtolower($discipline), "natation")
@@ -288,7 +311,8 @@ class ApiController extends AbstractController
 // OR str_contains(strtolower($discipline), "water-polo")
 // OR str_contains(strtolower($discipline), "chasse sous-marine")
 // ){
-// $sportClub->setCategory("Sports Aquatiques");
+//     $categ4->setName("Sports Aquatiques");
+//     $sportClub->setCategories($categ4);
 // }
 // elseif (str_contains(strtolower($discipline), "vélo")
 // OR str_contains(strtolower($discipline), "moto")
@@ -297,7 +321,8 @@ class ApiController extends AbstractController
 // OR str_contains(strtolower($discipline), "cyclisme")
 // OR str_contains(strtolower($discipline), "karting")
 // ){
-// $sportClub->setCategory("Vélo, Moto");
+//     $categ5->setName("Vélo, Moto");
+//     $sportClub->setCategories($categ5);
 // }
 // elseif (str_contains(strtolower($discipline), "escalade")
 // OR str_contains(strtolower($discipline), "alpinisme")
@@ -310,7 +335,8 @@ class ApiController extends AbstractController
 // OR str_contains(strtolower($discipline), "voltige")
 // OR str_contains(strtolower($discipline), "spéléologie")
 // ){
-// $sportClub->setCategory("Sports de Montagne");
+//     $categ6->setName("Sports de Montagne");
+//     $sportClub->setCategories($categ6);
 // }
 // elseif (str_contains(strtolower($discipline), "aviron")
 // OR str_contains(strtolower($discipline), "canoe")
@@ -318,7 +344,8 @@ class ApiController extends AbstractController
 // OR str_contains(strtolower($discipline), "rame")
 // OR str_contains(strtolower($discipline), "bateau")
 // ){
-// $sportClub->setCategory("Bateaux");
+//     $categ7->setName("Bateaux");
+//     $sportClub->setCategories($categ7);
 // }
 // elseif (str_contains(strtolower($discipline), "tennis")
 // OR str_contains(strtolower($discipline), "ping")
@@ -327,7 +354,8 @@ class ApiController extends AbstractController
 // OR str_contains(strtolower($discipline), "raquette")
 // OR str_contains(strtolower($discipline), "pelote")
 // ){
-// $sportClub->setCategory("Sports de Raquettes");
+//     $categ8->setName("Sports de Raquettes");
+//     $sportClub->setCategories($categ8);
 // }
 // elseif (str_contains(strtolower($discipline), "athl")
 // OR str_contains(strtolower($discipline), "saut")
@@ -337,12 +365,14 @@ class ApiController extends AbstractController
 // OR str_contains(strtolower($discipline), "perche")
 // OR str_contains(strtolower($discipline), "mètres")
 // ){
-// $sportClub->setCategory("Athlétisme");
+//     $categ9->setName("Athlétisme");
+//     $sportClub->setCategories($categ9);
 // }
 // elseif (str_contains(strtolower($discipline), "arc")
 // OR str_contains(strtolower($discipline), "tir")
 // ){
-// $sportClub->setCategory("Sports de Tir");
+//     $categ10->setName("Sports de Tir");
+//     $sportClub->setCategories($categ10);
 // }
 // elseif (str_contains(strtolower($discipline), "danse")
 // OR str_contains(strtolower($discipline), "jazz")
@@ -351,7 +381,8 @@ class ApiController extends AbstractController
 // OR str_contains(strtolower($discipline), "dance")
 // OR str_contains(strtolower($discipline), "capoeira")
 // ){
-// $sportClub->setCategory("Danses");
+//     $categ11->setName("Danses");
+//     $sportClub->setCategories($categ11);
 // }
 // elseif (str_contains(strtolower($discipline), "billard")
 // OR str_contains(strtolower($discipline), "bowling")
@@ -362,20 +393,24 @@ class ApiController extends AbstractController
 // OR str_contains(strtolower($discipline), "boules")
 // OR str_contains(strtolower($discipline), "quilles de huit")
 // ){
-// $sportClub->setCategory("Autres");
+//     $categ12->setName("Autres");
+//     $sportClub->setCategories($categ12);
 // }
 // elseif (str_contains(strtolower($discipline), "gym")
 // OR str_contains(strtolower($discipline), "muscu")
 // OR str_contains(strtolower($discipline), "yoga")
+// OR str_contains(strtolower($discipline), "cross fit")
 
 // ){
-// $sportClub->setCategory("Gym, Musculation");
+//     $categ13->setName("Gym, Musculation");
+//     $sportClub->setCategories($categ13);
 // }
 // elseif (str_contains(strtolower($discipline), "equitation")
 // OR str_contains(strtolower($discipline), "équitation")
 // OR str_contains(strtolower($discipline), "polo")
 // ){
-// $sportClub->setCategory("Sports Equestres");
+//     $categ14->setName("Sports Equestres");
+//     $sportClub->setCategories($categ14);
 // }
 
 // $manager->persist($sportClub);
@@ -388,9 +423,28 @@ class ApiController extends AbstractController
 // $manager->persist($postalCode5);
 // $manager->persist($postalCode6);
 // $manager->persist($postalCode7);
+
+// $manager->persist($categ14);
+// $manager->persist($categ13);
+// $manager->persist($categ12);
+// $manager->persist($categ11);
+// $manager->persist($categ10);
+// $manager->persist($categ9);
+// $manager->persist($categ8);
+// $manager->persist($categ7);
+// $manager->persist($categ6);
+// $manager->persist($categ5);
+// $manager->persist($categ4);
+// $manager->persist($categ3);
+// $manager->persist($categ2);
+// $manager->persist($categ1);
+
+    
+
 // $manager->flush();
-                
-        // $clubs = $repo->findAll();
+    
+
+        $clubs = $repo->findAll();
         return $this->render('api/index.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -406,7 +460,6 @@ class ApiController extends AbstractController
             'club' => $sportClub,
         ]);
     }
-  
 
    
 }

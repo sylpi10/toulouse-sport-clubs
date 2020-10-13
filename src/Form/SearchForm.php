@@ -2,11 +2,17 @@
 
 namespace App\Form;
 
+use App\Controller\ApiController;
 use App\Data\SearchData;
+use App\Entity\Category;
 use App\Entity\PostalCode;
+use App\Entity\SportClub;
+use App\Repository\SportClubRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,12 +30,18 @@ class SearchForm extends AbstractType
                     'placeholder' => 'Ex: Jiu Jitsu'
                 ]
             ])
-            ->add('cat', TextType::class, [
+            ->add('categories', EntityType::class, [
                 'label' => "Catégorie",
+                'placeholder' => "Ex Sports de Combat",
                 'required' => false,
-                'attr' => [
-                    'placeholder' => 'Ex: Sports De Combat'
-                ]
+                'class' => Category::class,
+                // 'expanded' => true,
+            
+                'choice_label' => function (Category $categ)
+                {   
+                    return $categ;
+                }, 
+                // 'choice_value' => ChoiceList::value($this, 'id'),
             ])
        
             ->add('postals', EntityType::class, [

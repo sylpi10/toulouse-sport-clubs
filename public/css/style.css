@@ -14,7 +14,6 @@ html{
 body{
     padding: 0;margin: 0;
     box-sizing: border-box;
-    background: url("../images/back.jpg") no-repeat;
     color: #1d0c80;
     background-size: cover;
     font-family: "sketchy";
@@ -22,14 +21,20 @@ body{
     background-attachment: fixed;
     height: 100%;
 }
-
+.body{
+    background: url("../images/back.jpg") no-repeat;
+    background-size: cover;
+    margin: 0;
+    height: 100%;
+}
 .container-fluid{
     background-color: rgba(255,255,255,.65);
-    /* height: 100%; */
+    /* height: 110%; */
     padding-top: 100px;
 }
 .container{
     background-color: rgba(255,255,255,.65);
+    background-color: rgba(0,0,0,.65);
     margin-top: 0px;
 }
 
@@ -178,33 +183,49 @@ tspan{
 
 
 /*results*/
+.results-body{
+    background: url("../images/categ/sports-de-montagne.jpg");
+    background-attachment: fixed;
+    min-height: 100vh;
+}
 .results h2, .details-page h2{
     padding-top: 100px;
+    color: #fff;
+}
+
+.results main{
+    display: flex;
+    flex-direction: column;
 }
 
 .club-list{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
-    margin-top: 40px;
+    width: 100%;
+    align-items: flex-start;
 }
 .club-list a {
     text-decoration: none;
 }
 
 .club-detail{
-    width: 300px;   
-    /* margin: 8px auto; */
+    width: 320px;   
     padding: 20px;
-    background: url("../images/fanion.png") no-repeat center;
-    background-size: cover;
-    /* height: 320px; */
+    margin-bottom: 12px;
+    /* background: url("../images/fanion.png") no-repeat center; */
+    /* background-color: rgba(0,0,0,.6); */
+    background-color: rgba(255,255,255,.85);
+    /* background-size: cover; */
     min-height: 320px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
 }
 .club-detail h3{
     width: 90%;
     margin: auto;
-    padding-top: 20px;
+    padding-top: 16px;
+    color: #333;
 }
 .club-detail h4{
     background-color: rgb(255, 36, 36, .6);
@@ -224,58 +245,124 @@ tspan{
 .detail-body {
     width: 100%;
     padding: 0;margin: 0;
-    /* background: url("../images/back2.jpg") no-repeat; */
+    min-height: 100%;
+    background: url("../images/categ/ball.jpg") no-repeat center;
+    /* background-size: 80%; */
+    background-attachment: fixed;
+}
+.autres{
+    background: url("../images/categ/autres.jpg") no-repeat;
+    background-attachment: fixed;
+}
+.collectifs{
+    background: url("../images/categ/ball.jpg") no-repeat center;
+    /* background-size: 80%; */
+    background-attachment: fixed;
+}
+.bateaux{
+    background: url("../images/categ/bateaux.jpg") no-repeat center;
+    background-attachment: fixed;
+}
+.combat{
+    background: url("../images/categ/sports-de-combat.jpg") no-repeat center;
+    background-attachment: fixed;
+}
+.tir{
+    background: url("../images/categ/sports-de-tir.jpg") no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.danses{
+    background: url("../images/categ/danses.jpg") no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.aquatiques{
+    background: url("../images/categ/sports-aquatiques.jpg") no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.glisse{
+    background: url("../images/categ/sports-de-glisse.jpg") no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.montagne{
+    background: url("../images/categ/sports-de-montagne.jpg") no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.musculation{
+    background: url("../images/categ/gym.jpg") no-repeat top;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.moto{
+    background: url("../images/categ/velo-moto.jpg") no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.raquettes{
+    background: url("../images/categ/sports-de-raquettes.jpg") no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.equestres{
+    background: url("../images/categ/sports-equestres.jpg") no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
 }
 .details-page{
     width: 72% !important;
-    background-color: rgba(255,255,255,.65);
     margin: auto;
 }
-
-.only-club-detail{
-    width: 90%;
-    margin: auto;
+.details-page p {
+    font-size: 1.5rem;
 }
 
-.name-and-discipline{
+.details-page i{
+    font-size: 3rem;
+    margin: 30px 0;
+}
+
+.main-infos-container{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    padding-top: 80px;
-    align-items: flex-end;
+    padding-top: 100px;
+    align-items: center;
 }
-.pennant{
-    background: url("../images/fanion.png") no-repeat;
-    background-size: cover;
+.club-name{
+    background-color: rgba(0,0,0,.6);
     width: 380px;
     min-height: 300px;
     text-align: center;
-    margin-bottom: 10px;
+}
+.address{
+    display: flex;
+    align-items: center;
+}
+.address i {
+    font-size: 4rem;
+}
+.address, .specifics{
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 12px;
+    color: #fff;
 }
 
-.pennant h2, h3{
+.club-name h2, h3{
     width: 80%;
     margin: auto;
     text-align: center;
     margin-top: -55px;
+    color: #fff;
     font-size: 2.1rem;
 }
-.pennant h3{
-    color: #fff;
+.club-name h3{
     background-color: rgb(255, 34, 34, .6);
-    margin-top: 20px;
+    margin:30px auto;
     padding: 8px 0;
-}
-
-
-.only-club-detail i{
-    font-size: 2.8rem;
-    margin: 30px 0;
-    opacity: .8;
-}
-
-.only-club-detail p {
-    font-size: 1.4rem;
 }
 
 .web-link{
@@ -290,28 +377,11 @@ tspan{
     color: #fff;
     height: 60px;
     padding: 8px 28px;
-    font-size: 1.6rem;
+    font-size: 2rem;
 }
-.arrow1{
-    transform: rotate(45deg);
-    font-size: 1.5em !important;
-}
-
-.arrow2{
-    transform: rotate(220deg);
-    font-size: 1.5rem !important;
-}
-
-.even{
-    transform: skewY(12deg);
-}
-.odd{
-    transform: skewY(-12deg);
-}
-
 
 .specifics{
-    padding-bottom: 200px;
+    padding-bottom: 100px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;

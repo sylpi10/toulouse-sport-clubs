@@ -3,53 +3,45 @@
 {% block title %}Clubs sport{% endblock %}
 
 {% block body %}
-<div class="detail-body">
+<div class="detail-body {{club.category|lower}}">
 
+<main class="details-page">
 
-<main class=" details-page">
-
-        <div class="only-club-detail">
-
-            <div class="name-and-discipline">
-                <div class="pennant">
+            <div class="main-infos-container">
+                {# club name and discipline #}
+                <div class="club-name">
                     <h2 class="detail-title">{{club.name}}</h2>
-                    <h3 class="">
-                        {{club.discipline|upper}}
-                    </h3>
+                    <h3>{{club.discipline|upper}}</h3> 
                 </div>
-                <div class="picture">
-                    {% if "Combat" in club.category %}
-                    <img src="{{asset('images/karate.svg')}}" alt="sport pic" width="240">
 
-                    {% elseif "sports collectifs" in club.category|lower %}
-                    <img src="{{asset('images/ball.png')}}" alt="sport pic" width="240">
-                    </h4>
-                    {% endif %}
-                    <hr>
-                    <h4>{{club.category}}</h4>
+                {# club address details  #}
+                <div class="address">
+                        <div class="col-3">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <div class="col-9">
+                            <p> {{club.address ? club.address : ''}} </p>
+                            <p> {{club.district ? club.district : ''}} </p>
+                            {% if club.postalCodes %}
+                                <p>CP: {{club.postalCodes}}</p>
+                            {% else %}
+                                <p class="text-dark">
+                                    Pas d'adresse Disponible :-(
+                                </p>
+                            {% endif %}
+                            {% if club.complex %}
+                            <h4><img src="{{asset('images/stadium2.png')}}" alt="stadium" width="76" >
+                           {{club.complex}} </h4>
+                             {% endif %}
+                        </div>
+                    {# <h4>{{club.category}}</h4> #}
                 </div>
             </div>
           
-
-                        <hr class="w-75 even">
-                        
-                        {% if club.complex %}
-                             <h4><img src="{{asset('images/stadium2.png')}}" alt="stadium" width="76" >
-                            {{club.complex}} </h4>
-                        {% endif %}
+                        <hr>
+        
                             
-                            <hr class="w-75 odd">
-                            <div class="row w-50 m-auto">
-                                <div class="col-4">
-                                    <i class="fas fa-map-marked-alt"></i>
-                                </div>
-                                <div class="col-8">
-                                    <p> {{club.address ? club.address : ''}} </p>
-                                    <p> {{club.district ? club.district : ''}} </p>
-                                    <p>CP: {{club.postalCodes}}</p>
-                                </div>
-                            </div>
-                            <hr class="w-75 even">
+                    
                             
                         {% if club.weblink != '' %}
                             <div class="web-link">
@@ -59,8 +51,7 @@
                             </div>    
                         {% endif %}
 
-                        <div class="specifics shadow">
-
+                        <div class="specifics">
                             <p>
                                 Séniors:
                                 {{club.seniors}}
@@ -121,8 +112,16 @@
                              
                             </p>
                             <p>
+                                Juniors 0-3 ans:
+                                    {% if club.j0to3 %}
+                                    <i class="fas fa-check-circle text-success"></i>
+                                    {% else %}
+                                    <i class="fas fa-times text-danger"></i>
+                                    {% endif %}
+                             
+                            </p>
+                            <p>
                                 Handicapés:
-                                {{club.handicap}}
                                 {% if club.handicap is defined  %}
                                     {% if club.handicap %}
                                     <i class="fas fa-check-circle text-success"></i>
@@ -145,7 +144,6 @@
                         </div>
                    
 
-            </div>
-</main>
+    </main>
 </div>
 {% endblock %}

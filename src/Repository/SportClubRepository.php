@@ -28,7 +28,8 @@ public function findSearch(SearchData $search): array
 {
    $query = $this
     ->createQueryBuilder("club")
-    ->select("club", 'postal')
+    ->select("club", 'categ', 'postal')
+    ->join('club.categories', 'categ')
     ->join('club.postalCodes', 'postal');
 
     if (!empty($search->q)) {
@@ -37,17 +38,17 @@ public function findSearch(SearchData $search): array
             ->setParameter('q', "%{$search->q}%");
     }
 
-    if (!empty($search->cat)) {
+    if (!empty($search->categories)) {
         $query = $query
-            ->andWhere('club.category LIKE :cat')
-            ->setParameter('cat', "%{$search->cat}%");
+            ->andWhere('categ.id in (:categories)')
+            ->setParameter('categories', $search->categories);
     }
 
-    // not working ?? ...
+    // not working ... -> value not set in the map ??
     if (!empty($search->postalCodes)) {
         $query = $query
-            ->andWhere('postal.number in (:postalCodes)')
-            ->setParameter('postalCodes', $search->postals['number']);
+            ->andWhere('postal.id in (:postalCodes)')
+            ->setParameter('postalCodes', $search->postals);
     }
    
 

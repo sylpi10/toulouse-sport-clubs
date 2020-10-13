@@ -28,10 +28,10 @@ class SportClub
     private $discipline;
 
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $category;
+    // /**
+    //  * @ORM\Column(type="string", length=255, nullable=true)
+    //  */
+    // private $category;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -107,6 +107,11 @@ class SportClub
      */
     private $postalCodes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="sportClubs")
+     */
+    private $categories;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,18 +141,17 @@ class SportClub
         return $this;
     }
 
+    // public function getCategory(): ?string
+    // {
+    //     return $this->category;
+    // }
 
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
+    // public function setCategory(?string $category): self
+    // {
+    //     $this->category = $category;
 
-    public function setCategory(?string $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getWeblink(): ?string
     {
@@ -326,5 +330,23 @@ class SportClub
         $this->postalCodes = $postalCodes;
 
         return $this;
+    }
+
+
+    public function getCategories(): ?Category
+    {
+        return $this->categories;
+    }
+
+    public function setCategories(?Category $categories): self
+    {
+        $this->categories = $categories;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

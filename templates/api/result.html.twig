@@ -3,43 +3,41 @@
 {% block title %}Results{% endblock %}
 
 {% block body %}
+<div class="results-body">
+
 
 
 <div class="container results">
 
     {% for postal in postals %}
 
-        <h2 class="">  Résultats pour "<span class="text-danger">{{sport}}</span> "
-             dans le <span class="text-danger"> {{postal.number}} </span> :</h2>
-            <hr>
+    <main class="">
+        <div class="result-title">
+            <h2 class="">  Résultats pour "<span class="text-danger">{{sport}}</span> "
+                dans le <span class="text-danger"> {{postal.number}} </span> :</h2>
+                <hr>
+            </div>
 
-        <main class="club-list">
-
-            {% for club in clubs %}
-               {% if club.postalCodes.number == postal.number %}
-               <a href="{{path('detail', {'id': club.id})}}" title="Détails du club"> 
-                    <div class="club-detail">
-                        <h3> 
-                            {{club.name|upper}} 
-                        </h3>
-                        <hr>
-                        <h4>{{club.discipline|title}}</h4>
-                        <hr>
-                        <h5>{{club.district}}</h5>
-                        <h5 class="postal">{{club.postalCodes.number}}</h5>
-                    </div> 
-                </a>
+            <div class="club-list">
+                {% for club in clubs %}
+                    {# // filter in repo not working -> filter by postal code  #}
+                    {% if club.postalCodes.number == postal.number %}
+                    <a href="{{path('detail', {'id': club.id})}}" title="Détails du club"> 
+                        <div class="club-detail">
+                            <h3> {{club.name|upper}}</h3>
+                                <hr>
+                            <h4>{{club.discipline|title}}</h4>
+                                <hr>
+                            <h5>{{club.district}}</h5>
+                            <h5 class="postal">{{club.postalCodes.number}}</h5>
+                        </div> 
+                    </a>
                     {% endif %}
-               
-            {% endfor %}
-            {% endfor %}
-
+                {% endfor %}
+            </div>  
         </main>
-
-
-        {# {% endif %} #}
-    {# {% endfor %} #}
+            {% endfor %}
                 
 </div>
-
+</div>
 {% endblock %}

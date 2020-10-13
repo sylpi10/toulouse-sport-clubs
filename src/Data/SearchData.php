@@ -2,7 +2,10 @@
 
 namespace App\Data;
 
+use App\Entity\Category;
 use App\Entity\PostalCode;
+use App\Entity\SportClub;
+use App\Repository\SportClubRepository;
 use phpDocumentor\Reflection\Types\Integer;
 
 class SearchData
@@ -16,24 +19,17 @@ class SearchData
     /**
      * @var string
      */
-     public $cat = '';
+     private $cat = '';
 
      /**
       * @var PostalCode
       */
       public $postals = [];
+
+      /**
+       * @var Category
+       */
+      public $categories;   
   
-    /**
-     * 
-     */
-    // public $d31000;
-    // /**
-    //  * 
-    //  */
-    // public $d31100;
-    // /**
-    //  * 
-    //  */
-    // public $d31400;
+
  }
-    
