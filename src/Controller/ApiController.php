@@ -3,20 +3,19 @@
 namespace App\Controller;
 
 use App\Data\SearchData;
-use App\Entity\Category;
 use App\Entity\PostalCode;
 use App\Form\SearchForm;
 use App\Entity\SportClub;
+use App\Repository\CategoryRepository;
+use App\Repository\PostalCodeRepository;
 use App\Service\ClubApiService;
 use App\Repository\SportClubRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ApiController extends AbstractController
 {
@@ -25,25 +24,34 @@ class ApiController extends AbstractController
      */
     public function index(HttpClientInterface $httpClient, 
     Request $request, ClubApiService $apiService, 
-    EntityManagerInterface $manager,SportClubRepository $repo)
+    EntityManagerInterface $manager,CategoryRepository $categRepo, PostalCodeRepository $postalRepo)
     {
         
         $data = new SearchData();
         $form = $this->createForm(SearchForm::class, $data);
-
         $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
             
-            $filterclubs = $repo->findSearch($data);
+            // $filterclubs = $repo->findSearch($data);
+            $categ = $categRepo->findCateg($data);
+            $filter = $postalRepo->filterClubs($data);
             $sport = $form->get('q')->getData();
             $postals = $form->get('postals')->getData();
-
+    
+            // $categories = $form->get('categories')->getData();
+            // dump($postals);
+            // dump($sport);
+            // dd($filter);
 
             return $this->render('api/result.html.twig', [
-                    'clubs' => $filterclubs,
+                    // 'clubs' => $filterclubs,
+                    'categs' => $categ,
+                    'filtered' => $filter,
                     'form' => $form->createView(),
                     'postals' =>$postals,
-                    'sport' => $sport
+                    'sport' => $sport,
+                    'data' => $data,
+                    // 'categories' => $categories
                     ]);
         }
 
@@ -444,9 +452,10 @@ class ApiController extends AbstractController
 // $manager->flush();
     
 
-        $clubs = $repo->findAll();
+        // $clubs = $postalRepo->findAll();
         return $this->render('api/index.html.twig', [
             'form' => $form->createView(),
+            // 'clubs' => $clubs
         ]);
     }
 

@@ -33,6 +33,8 @@ let txt31500 = document.querySelector('.text-31500 > ul');
 let title31500 = document.querySelector('.text-31500 > h3');
 let check31500 = document.querySelector('#postals_7');
 
+let allTitles = document.querySelectorAll('.text > h3');
+
 // set all hidden text to heigh = (0)
 let allText = document.querySelectorAll('.text > ul');
 allText.forEach(text => {
@@ -120,5 +122,40 @@ function showText (dis, txt, title, check) {
 
 
 
+allDistrictsInput = document.getElementById('all');
+
+
+allDistrictsInput.addEventListener("click", function (e) {
+    if (allDistrictsInput.checked == true ) {
+        check31000.checked = true;
+        check31100.checked = true;
+        check31200.checked = true;
+        check31300.checked = true;
+        check31400.checked = true;
+        check31500.checked = true;
+        districts.forEach(function (e) {
+            e.style.fill = "#5993E5";
+        });
+        allTitles.forEach(function(text) {
+            text.style.color = "#003F87";
+        });
+        
+    }else{
+        check31000.checked = false;
+        check31200.checked = false;
+        check31100.checked = false;
+        check31300.checked = false;
+        check31400.checked = false;
+        check31500.checked = false;
+        districts.forEach(function (e) {
+            e.style.fill = "#7EB6FF";
+         });
+         allTitles.forEach(function(text) {
+            text.style.color = "#333";
+        }); 
+    }
+   
+})
+    
 
 

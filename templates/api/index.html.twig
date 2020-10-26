@@ -12,14 +12,21 @@
         <main class="main row">
             
             {% include "texts.html.twig" %}
-            {% include "map.html.twig" %}
-            
+
+                {% include "map.html.twig" %}
+                 
+           
             <div class="form">
                 
+               <div class="mb-5 pb-3">
+                <input type="checkbox" name="Toute la Ville" id="all">
+                <label for="all">Toute la Ville</label> 
+               </div>
+               
                 {{form_start(form)}}
                 {{form_row(form.q)}}
                 {{form_row(form.categories)}}
-                <div class="postals ">
+                <div class="postals hidden">
                     {{form_row(form.postals)}}
                 </div>
 
@@ -29,15 +36,9 @@
             
         </main>
         
-        <div id="results" class="bg-light">
-            {% for club in filters %}
-            <h2>  {{club.name}}</h2>
-            <h2>  {{club.discipline}}</h2>
-            {% endfor %}
-        </div>
-        
         {# // end container-fluid #}
     </div>
+
 </div>
 
     {% endblock %}

@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Category;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +19,27 @@ class CategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Category::class);
     }
+
+     /**
+  *@return Category[]; 
+  */  
+public function findCateg(SearchData $search): array
+{
+   $query = $this
+    ->createQueryBuilder("categ")
+    ->select('categ', 'club')
+    ->leftJoin('categ.sportClubs', 'club');
+
+
+        if (!empty($search->categories)) {
+        $query = $query
+            ->andWhere('categ.id in (:categories)')
+            ->setParameter('categories', $search->categories);
+    }
+
+    return $query->getQuery()->getResult();
+
+}
 
     // /**
     //  * @return Category[] Returns an array of Category objects

@@ -19,17 +19,19 @@ body{
     font-family: "sketchy";
     text-align: center;
     background-attachment: fixed;
-    height: 100%;
+    /* height: 100%; */
 }
 .body{
     background: url("../images/back.jpg") no-repeat;
     background-size: cover;
+    background-attachment: fixed;
     margin: 0;
     height: 100%;
 }
 .container-fluid{
     background-color: rgba(255,255,255,.65);
     /* height: 110%; */
+    margin: 0;
     padding-top: 100px;
 }
 .container{
@@ -74,11 +76,13 @@ h2{
     display: flex;
     justify-content: space-between;
     /* height: 100%; */
-    height: 100vh;
+    /* height: 100vh; */
+    min-height: 100vh;
     width: 84%;
     align-items: center;
     flex-wrap: wrap;
 }
+
 
 svg{
     transform: scale(1.35);
@@ -163,7 +167,7 @@ tspan{
     .main{
         flex-direction: column;
         justify-content: center;
-        height: 120%;
+        height: 200%;
         padding-bottom: 30px;
         margin-top: 50px;
     }
@@ -174,7 +178,7 @@ tspan{
     }
     .form{
         width: 74% !important;
-        margin-top: 20px;
+        margin-top: 50px;
     }
     header{
         justify-content: center;

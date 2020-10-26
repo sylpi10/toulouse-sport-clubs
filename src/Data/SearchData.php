@@ -14,7 +14,7 @@ class SearchData
     /**
      * @var string
      */
-     public $q = '';
+     public $q;
     
     /**
      * @var string
@@ -30,6 +30,11 @@ class SearchData
        * @var Category
        */
       public $categories;   
+
+      // /**
+      //  * @var SportClub
+      //  */
+      // public $sportclub;
   
 
  }

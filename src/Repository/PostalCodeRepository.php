@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\PostalCode;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method PostalCode|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +19,40 @@ class PostalCodeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PostalCode::class);
     }
+    // select * from postal_code join sport_club where sport_club.postal_codes_id = 2 
+    //and sport_club.discipline = 'football' 
+
+    /**
+     * @return PostalCode[]; 
+     */
+    public function filterClubs(SearchData $search): array
+    {
+        $query = $this
+            ->createQueryBuilder("postal")
+            ->select('postal', 'club')
+            ->join('postal.sportClubs', 'club');
+            // ->select('club', 'categ')
+            // ->join('postal.sportClubs.categories', 'categ');
+
+        if (!empty($search->q) && !empty($search->postals)){
+            $query = $query
+            ->andWhere('club.postalCodes in (:postalCodes) AND club.discipline LIKE :q')
+            ->setParameter('postalCodes', $search->postals)
+            ->setParameter('q', "%{$search->q}%");
+        }
+        
+        // if (!empty($search->categories)) {
+        //         $query = $query
+        //             ->andWhere('categ.id in (:categories)')
+        //             ->setParameter('categories', $search->categories);
+        //     }
+
+        // dd($query);
+            
+                return $query->getQuery()->getResult();
+        
+    }
+
 
     // /**
     //  * @return PostalCode[] Returns an array of PostalCode objects

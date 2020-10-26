@@ -54,7 +54,7 @@ class PostalCode
     /**
      * @return Collection|SportClub[]
      */
-    public function getSportClubs(): Collection
+    public function getSportClubs(): ?Collection
     {
         return $this->sportClubs;
     }
@@ -83,6 +83,6 @@ class PostalCode
     }
     public function __toString()
     {
-        return (string) $this->number;
+        return $this->number;
     }
 }
