@@ -20,26 +20,33 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-     /**
-  *@return Category[]; 
-  */  
-public function findCateg(SearchData $search): array
-{
-   $query = $this
-    ->createQueryBuilder("categ")
-    ->select('categ', 'club')
-    ->leftJoin('categ.sportClubs', 'club');
+  ///**
+  //*@return Category[]; 
+  //*/  
+// public function findCateg(SearchData $search): array
+// {
+//    $query = $this
+//     ->createQueryBuilder("categ")
+//     ->select('categ', 'club')
+//     ->leftJoin('categ.sportClubs', 'club');
 
 
-        if (!empty($search->categories)) {
-        $query = $query
-            ->andWhere('categ.id in (:categories)')
-            ->setParameter('categories', $search->categories);
-    }
+//     //     if (!empty($search->categories)) {
+//     //     $query = $query
+//     //         ->andWhere('categ.id in (:categories)')
+//     //         ->setParameter('categories', $search->categories);
+//     // }
+    
+//     if (!empty($search->q) && !empty($search->categories)){
+//         $query = $query
+//         ->andWhere('categ.id in (:categories) AND club.discipline LIKE :q')
+//         ->setParameter('categories', $search->categories)
+//         ->setParameter('q', "%{$search->q}%");
+//     }
 
-    return $query->getQuery()->getResult();
+//     return $query->getQuery()->getResult();
 
-}
+// }
 
     // /**
     //  * @return Category[] Returns an array of Category objects

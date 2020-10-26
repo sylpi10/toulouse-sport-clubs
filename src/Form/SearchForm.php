@@ -27,22 +27,22 @@ class SearchForm extends AbstractType
                 'label' => "Sport",
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Ex: Jiu Jitsu'
+                    'placeholder' => 'Ex: Karaté'
                 ]
             ])
-            ->add('categories', EntityType::class, [
-                'label' => "Catégorie",
-                'placeholder' => "Ex: Sports de Combat",
-                'required' => false,
-                'class' => Category::class,
-                // 'expanded' => true,
-            
-                'choice_label' => function (Category $categ)
-                {   
-                    return $categ;
-                }, 
-                // 'choice_value' => ChoiceList::value($this, 'id'),
-            ])
+            // ->add('categories', EntityType::class, [
+            //     'label' => "Catégorie",
+            //     'placeholder' => "Ex: Sports de Combat",
+            //     'required' => false,
+            //     'mapped' => false,
+            //     'class' => Category::class,
+            //     // 'expanded' => true,
+            //     'choice_label' => function (Category $categ)
+            //     {   
+            //         return $categ;
+            //     }, 
+                
+            // ])
        
             ->add('postals', EntityType::class, [
                 'required' => false,

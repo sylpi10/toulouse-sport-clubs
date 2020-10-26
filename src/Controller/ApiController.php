@@ -24,7 +24,7 @@ class ApiController extends AbstractController
      */
     public function index(HttpClientInterface $httpClient, 
     Request $request, ClubApiService $apiService, 
-    EntityManagerInterface $manager,CategoryRepository $categRepo, PostalCodeRepository $postalRepo)
+    EntityManagerInterface $manager,CategoryRepository $categRepo, PostalCodeRepository $postalRepo, SportClubRepository $clubRepo)
     {
         
         $data = new SearchData();
@@ -32,21 +32,19 @@ class ApiController extends AbstractController
         $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
             
-            // $filterclubs = $repo->findSearch($data);
-            $categ = $categRepo->findCateg($data);
-            $filter = $postalRepo->filterClubs($data);
+            // $categ = $categRepo->findCateg($data);
+            $filtered = $postalRepo->filterClubs($data);
             $sport = $form->get('q')->getData();
             $postals = $form->get('postals')->getData();
     
             // $categories = $form->get('categories')->getData();
-            // dump($postals);
-            // dump($sport);
-            // dd($filter);
+            // dd($filtered);
+            // dd($data);
 
             return $this->render('api/result.html.twig', [
                     // 'clubs' => $filterclubs,
-                    'categs' => $categ,
-                    'filtered' => $filter,
+                    // 'categs' => $categ,
+                    'filtered' => $filtered,
                     'form' => $form->createView(),
                     'postals' =>$postals,
                     'sport' => $sport,

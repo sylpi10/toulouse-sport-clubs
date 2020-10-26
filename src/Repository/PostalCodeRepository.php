@@ -6,6 +6,8 @@ use App\Data\SearchData;
 use App\Entity\PostalCode;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\AST\NullIfExpression;
+use Symfony\Component\Validator\Constraints\IsNull;
 
 /**
  * @method PostalCode|null find($id, $lockMode = null, $lockVersion = null)
@@ -33,14 +35,19 @@ class PostalCodeRepository extends ServiceEntityRepository
             ->join('postal.sportClubs', 'club');
             // ->select('club', 'categ')
             // ->join('postal.sportClubs.categories', 'categ');
-
-        if (!empty($search->q) && !empty($search->postals)){
+ 
+        if (!empty($search->postals)){
             $query = $query
-            ->andWhere('club.postalCodes in (:postalCodes) AND club.discipline LIKE :q')
-            ->setParameter('postalCodes', $search->postals)
+            ->andWhere('club.postalCodes in (:postalCodes)')
+            ->setParameter('postalCodes', $search->postals);
+        }
+
+        if (!empty($search->q)){
+            $query = $query
+            ->andWhere('club.discipline LIKE :q')
             ->setParameter('q', "%{$search->q}%");
         }
-        
+
         // if (!empty($search->categories)) {
         //         $query = $query
         //             ->andWhere('categ.id in (:categories)')
@@ -48,9 +55,8 @@ class PostalCodeRepository extends ServiceEntityRepository
         //     }
 
         // dd($query);
-            
-                return $query->getQuery()->getResult();
-        
+
+                    return $query->getQuery()->getResult();
     }
 
 

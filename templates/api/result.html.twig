@@ -7,110 +7,63 @@
         
     <main class="container results">
 
-
-        {% for postal in data.postals %}
-
-        {# <h2 class="">  Résultats pour
-           {% if sport %}
-               "<span class="text-danger">{{sport}}</span> "
-               {% endif %}
-           {% if categories %}
-               "<span class="text-danger">{{categories}}</span> "
-           {% endif %}
-               dans le <span class="text-danger"> {{postal.number}} </span> :
-        </h2>    #}
-
-{#         
-        {% for club in postal.sportClubs %}
-        {% if sport in club.discipline %}
-        <h5 class="text-white">  {{club.name}} <span class="text-success"> {{club.discipline}} </span></h5>
-        
-        {% endif %}
-        
-        {% endfor %}  #}
-        
-            {% if filtered is empty %}
-            <h2> no res for {{sport}} in  {{postal.number}}</h2>
-
-            <div class="">
-                
-                {% for categ in categs %}
-                    <h2>{{categ.name}}</h2>
-                {% endfor %}
-               
-             </div>
-
-            {% endif %}
-           
-        {% endfor %}
-        
-        
-        {% for key, item in filtered %}
-          
-        <h2>{{item.number}}</h2>
-        <h5 class="text-white">{{item.sportClubs|length}} results:</h5>
-        
- 
-
-        {% for club in item.sportClubs %}
-            <h5 class="text-white">  {{club.name}} <span class="text-success"> {{club.discipline}} </span></h5>
-                
-            {% endfor %}
-        {% endfor %}
-
-
- 
-      {#  {% for data in clubs %}
-            {# {% if data.postalCodes == postal.number %} 
-            <h5 class="text-white">{{data.name}}</h5>
-
-            {# {% endif %}       
-            {% endfor %}
-
-        {% endfor %}  #}
-
-
-
 {# 
-    {% for postal in postals %}
+    {% for postal in data.postals %}
 
-     <h2 class="">  Résultats pour
+     <h2 class="">Résultats pour
         {% if sport %}
             "<span class="text-danger">{{sport}}</span> "
             {% endif %}
-        {% if categories %}
+        {# {% if categories %}
             "<span class="text-danger">{{categories}}</span> "
-        {% endif %}
-            dans le <span class="text-danger"> {{postal.number}} </span> :
+        {# {% endif %} #}
+            {# dans le <span class="text-danger"> {{postal.number}} </span> :
      </h2>    
 
-    <hr>
+        {% if not filtered %}
+            <div class="m-5 p-5">
+                <h2> no res for {{sport}} in  {{postal.number}}</h2>
+            </div>
+            {% endif %}
+           
+            {% endfor %} #} 
 
-            <div class="club-list">
 
-                {% for club in postal.sportClubs %}
-                    {% if club.postalCodes.number == postal %}
 
-                        <a href="{{path('detail', {'id': club.id})}}" title="Détails du club"> 
-                            
-                                <div class="club-detail">
-                                    <h3> {{club.name|upper}}</h3>
-                                    <hr>
-                                    <h4>{{club.discipline|title}}</h4>
-                                    <hr>
-                                    <h5>{{club.district}}</h5>
-                                    <h5 class="postal">{{club.postalCodes.number}}</h5>
-                                </div> 
-                            </a>
+    
+    {% if filtered is empty %}
+            <div class="empty-result">
+                
+                <h2> no res for {{sport}} in  {{postal.number}}</h2>
+
+            </div>
+    
+    {% endif %}
+    
+    {% for item in filtered %}
+    
+    <h2 class="text-white">{{item.sportClubs|length}} Results for <span class="text-danger">"{{sport|upper}}"</span>
+             in <span class="text-danger"> {{item.number}}</span> </h2>
+    <div class="club-list mt-4">
+            {% for club in item.sportClubs %}
+
+                <a href="{{path('detail', {'id': club.id})}}" title="Détails du club"> 
                     
-                            {% else %}
-                                <h2>No result</h2>
-                    {% endif %}
-
-               {% endfor %}
+                    <div class="club-detail">
+                        <h3> {{club.name|upper}}</h3>
+                        <hr>
+                        <h4>{{club.discipline|title}}</h4>
+                        <hr>
+                        <h5>{{club.district}}</h5>
+                        <h5 class="postal">{{club.postalCodes.number}}</h5>
+                    </div> 
+                </a>
+         
+                
+                {% endfor %}
             </div>  
+            {% endfor %}
             
-            {% endfor %} #}
     </main>
 </div>
 {% endblock %}
