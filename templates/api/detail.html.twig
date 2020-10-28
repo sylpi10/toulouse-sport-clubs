@@ -12,7 +12,7 @@
                 <div class="club-name">
                     <h2 class="detail-title">{{club.name}}</h2>
                     <h3>{{club.discipline|upper}}</h3> 
-                    <h3>{{club.categories.name}}</h3>
+                    <h4>{{club.categories.name}}</h4>
                 </div>
 
                 {# club address details  #}
@@ -47,22 +47,18 @@
             </div>
           
                         <hr>
-        
-                            
-                    
                             
                         {% if club.weblink != '' %}
-                            <div class="web-link">
-                                <a href="{{"http://" ~ club.weblink}}" class=""title="Voir le Site Web" target="_new">
+                            {# <div class="web-link"> #}
+                                <a href="{{"http://" ~ club.weblink}}" class="web-link" title="Voir le Site Web" target="_new">
                                     {{club.weblink}}
                                 </a>
-                            </div>    
+                            {# </div>     #}
                         {% endif %}
 
                         <div class="specifics">
                             <p>
                                 Séniors:
-                                {{club.seniors}}
                                 {% if club.seniors is defined %}
                                     {% if club.seniors %}
                                     <i class="fas fa-check-circle text-success"></i>
