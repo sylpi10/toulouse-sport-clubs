@@ -21,9 +21,24 @@ class SportClubRepository extends ServiceEntityRepository
         parent::__construct($registry, SportClub::class);
     }
 
- /**
-  *
-  */  
+    /**
+     * @return SportClub[]; 
+     */
+    public function filterClubs(SearchData $search): array
+    {
+        $query = $this
+            ->createQueryBuilder("club")
+            ->select( 'club.discipline');
+
+        if (!empty($search->q)){
+            $query = $query
+            ->andWhere('club.discipline LIKE :q')
+            ->setParameter('q', "%{$search->q}%");
+        }
+
+        return $query->getQuery()->getResult();
+    }
+  
 
     // /**
     //  * @return SportClub[] Returns an array of SportClub objects

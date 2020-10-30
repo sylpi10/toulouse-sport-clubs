@@ -2,23 +2,28 @@
 
 namespace App\Form;
 
-use App\Controller\ApiController;
 use App\Data\SearchData;
 use App\Entity\Category;
-use App\Entity\PostalCode;
 use App\Entity\SportClub;
+use App\Entity\PostalCode;
+use App\Controller\ApiController;
 use App\Repository\SportClubRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\ChoiceList;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+
 class SearchForm extends AbstractType
 {
+    private $router;
+    public function __construct(RouterInterface $router)
+    {
+        $this->router = $router;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -27,7 +32,7 @@ class SearchForm extends AbstractType
                 'label' => "Sport",
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Ex: Karaté'
+                    'placeholder' => 'Ex: Karaté',
                 ]
             ])
             // ->add('categories', EntityType::class, [
@@ -43,9 +48,24 @@ class SearchForm extends AbstractType
             //     }, 
                 
             // ])
+            // ->add('q', EntityType::class, [
+            //     'label' => "discipline",
+            //     'placeholder' => "Ex: karaté",
+            //     'required' => false,
+            //     'mapped' => false,
+            //     'class' => SportClub::class,
+            //     // 'expanded' => true,
+            //     'choice_label' => function (SportClub $club)
+            //     {   
+            //         return $club->getDiscipline();
+            //     }, 
+            //     'choice_value' => function (?SportClub $entity) {
+            //         return $entity ? $entity->getDiscipline() : '';
+            //     },
+                
+            // ])
        
             ->add('postals', EntityType::class, [
-                'required' => false,
                 'class' => PostalCode::class,
                 'expanded' => true,
                 'multiple' => true,
@@ -58,7 +78,7 @@ class SearchForm extends AbstractType
         $resolver->setDefaults([
             'data_class' => SearchData::class,
             'method' => 'GET',
-            'csrf_protection' => false
+            'csrf_protection' => false,
         ]);
     }
 

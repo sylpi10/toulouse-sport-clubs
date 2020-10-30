@@ -53,14 +53,14 @@ header{
     flex-wrap: wrap-reverse;
     z-index: 999;
     margin-top: 0;
-    padding: 15px;
+    padding: 13px;
 }
 header h1{
     font-family: "freshman";
     font-size: 2rem;
     width: 75%;
 }
-header a{
+header .search{
     width: 180px;
 }
 h2{
@@ -202,10 +202,13 @@ tspan{
     display: flex;
     flex-direction: column;
 }
-
+.empty-result{
+    height: 94vh;
+}
 .club-list{
     display: flex;
     justify-content: space-around;
+    min-height: 90vh;
     flex-wrap: wrap;
     width: 100%;
     align-items: flex-start;

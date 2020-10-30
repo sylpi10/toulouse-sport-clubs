@@ -22,7 +22,6 @@
 
         {% if not filtered %}
             <div class="m-5 p-5">
-                <h2> no res for {{sport}} in  {{postal.number}}</h2>
             </div>
             {% endif %}
            
@@ -34,7 +33,7 @@
     {% if filtered is empty %}
             <div class="empty-result">
                 
-                <h2> no res for {{sport}} in  {{postal.number}}</h2>
+                <h2> Votre recherche n'a donné aucun résultat </h2>
 
             </div>
     
@@ -42,8 +41,8 @@
     
     {% for item in filtered %}
     
-    <h2 class="text-white">{{item.sportClubs|length}} Results for <span class="text-danger">"{{sport|upper}}"</span>
-             in <span class="text-danger"> {{item.number}}</span> </h2>
+    <h2 class="text-white">{{item.sportClubs|length}} Resultats pour <span class="text-danger">"{{sport|upper}}"</span>
+             dans le <span class="text-danger"> {{item.number}}</span> </h2>
     <div class="club-list mt-4">
             {% for club in item.sportClubs %}
 
