@@ -1,8 +1,5 @@
 
-@font-face{
-    font-family: "freshman"; 
-    src: url('../fonts/Freshman.ttf'); 
- }
+
 @font-face{
     font-family: "sketchy";
     src: url('../fonts/CabinSketch-Regular.ttf'); 
@@ -184,7 +181,12 @@ tspan{
         justify-content: center;
     }
 }
-
+@media screen and (max-width: 400px) {
+    svg{
+        transform: scale(1);
+        margin-left: -36px;
+    }
+}
 
 /*results*/
 .results-body{
@@ -248,17 +250,22 @@ tspan{
     transform: scale(1.05);
     transition: transform .6s ease;
 }
-
+@media screen and (max-width: 730px) {
+    .results{
+        margin-top: 35px;
+    }
+}
 
 /* details page*/
 .detail-body {
     width: 100%;
     padding: 0;margin: 0;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     background: url("../images/categ/ball.jpg") no-repeat center;
-    /* background-size: 80%; */
+    background-size: cover;
     background-attachment: fixed;
 }
+
 .autres{
     background: url("../images/categ/autres.jpg") no-repeat;
     background-attachment: fixed;
@@ -266,15 +273,18 @@ tspan{
 .collectifs{
     background: url("../images/categ/ball.jpg") no-repeat center;
     /* background-size: 80%; */
+    background-size: cover;
     background-attachment: fixed;
 }
 .bateaux{
     background: url("../images/categ/bateaux.jpg") no-repeat center;
     background-attachment: fixed;
+    background-size: cover;
 }
 .combat{
     background: url("../images/categ/sports-de-combat.jpg") no-repeat center;
     background-attachment: fixed;
+    background-size: cover;
 }
 .tir{
     background: url("../images/categ/sports-de-tir.jpg") no-repeat center;
@@ -330,6 +340,7 @@ tspan{
     width: 72% !important;
     margin: auto;
 }
+
 .details-page p {
     font-size: 1.5rem;
 }
@@ -367,10 +378,7 @@ tspan{
     padding: 8px 0;
 }
 .address{
-    /* display: flex;
-    align-items: center;
-    flex-wrap: wrap; */
-    padding: 30px;
+    padding: 30px; 
 }
 .address i {
     font-size: 4rem;
@@ -378,10 +386,14 @@ tspan{
     padding-left: 30px;
     color: rgba(187, 53, 53, 0.7);
 }
+.address-text{
+    width: 66%;
+}
 .map-icon{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
     width: 80%;
     margin: auto;
 }
@@ -446,5 +458,43 @@ tspan{
 @media screen and (max-width: 1120px) {
     .address{
         margin-top: 30px;    
+    }
+}
+
+@media screen and (max-width: 740px) {
+    .details-page{
+        margin: 0 auto!important;
+    }
+    .club-name{
+        margin: 0;
+        margin-top: 40px;
+        text-align: center;
+        width: 100%;
+    }
+    .club-name h2 {
+        font-size: 1.6rem;
+    }
+    .address-text{
+        width: 100%;
+        margin: 0;
+    }
+    .map-icon{
+        width: 100%;
+    }
+    .address i {
+        border-left: none;
+        margin: auto;
+        padding-left: 0;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .details-page{
+        width: 94% !important;
+        margin: auto;
+    }
+    .specifics{
+        width: 100%;
     }
 }

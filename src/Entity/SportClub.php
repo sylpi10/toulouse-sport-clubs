@@ -112,6 +112,11 @@ class SportClub
      */
     private $categories;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Discipline::class, inversedBy="sportClubs")
+     */
+    private $disciplines;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -348,5 +353,17 @@ class SportClub
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getDisciplines(): ?Discipline
+    {
+        return $this->disciplines;
+    }
+
+    public function setDisciplines(?Discipline $disciplines): self
+    {
+        $this->disciplines = $disciplines;
+
+        return $this;
     }
 }

@@ -12,14 +12,13 @@
                 <div class="club-name">
                     <h2 class="detail-title">{{club.name}}</h2>
                     <h3>{{club.discipline|upper}}</h3> 
-                    <h4>{{club.categories.name}}</h4>
                 </div>
 
                 {# club address details  #}
                 <div class="address">
                     <div class="map-icon">
                            
-                            <div class="">
+                            <div class="address-text">
 
                                 <p> {{club.address ? club.address : ''}} </p>
                                 <p> {{club.district ? club.district : ''}} </p>
