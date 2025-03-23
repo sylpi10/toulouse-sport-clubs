@@ -2,30 +2,26 @@
 
 namespace App\Entity;
 
+use App\Repository\CategoryRepository;
 use App\Repository\SportClubRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=SportClubRepository::class)
- */
+
+#[ORM\Entity(repositoryClass: SportClubRepository::class)]
+#[ORM\Table(name:"sport_club")]
 class SportClub
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column()]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $name;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $discipline;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $disciplineName;
 
 
     // /**
@@ -33,84 +29,57 @@ class SportClub
     //  */
     // private $category;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $weblink;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $weblink;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $complex;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $complex;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $adults;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $seniors;
+    #[ORM\Column]
+    private ?bool $adults;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $j16to20;
+    #[ORM\Column]
+    private ?bool $seniors;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $j12to15;
+    #[ORM\Column]
+    private ?bool $j16to20;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $j6to12;
+    #[ORM\Column]
+    private ?bool $j12to15;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $j3to6;
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $j0to3;
+    #[ORM\Column]
+    private ?bool $j6to12;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $corpo;
+    #[ORM\Column]
+    private ?bool $j3to6;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $handicap;
+    #[ORM\Column]
+    private ?bool $j0to3;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $address;
+    #[ORM\Column]
+    private ?bool $corpo;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $district;
+    #[ORM\Column]
+    private ?bool $handicap;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=PostalCode::class, inversedBy="sportClubs")
-     */
-    private $postalCodes;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $district;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="sportClubs")
-     */
-    private $categories;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $createdAt;
+
+    #[ORM\ManyToOne(targetEntity: PostalCode::class, inversedBy: 'sportClubs')]
+    private PostalCode $postalCodes;
+
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'sportClubs')]
+    private Category $categories;
+
+    #[ORM\ManyToOne(targetEntity: Discipline::class, inversedBy: 'sportClubs',)]
+    private Discipline $disciplines;
 
     public function getId(): ?int
     {
@@ -129,14 +98,14 @@ class SportClub
         return $this;
     }
 
-    public function getDiscipline(): ?string
+    public function getDisciplineName(): ?string
     {
-        return $this->discipline;
+        return $this->disciplineName;
     }
 
-    public function setDiscipline(string $discipline): self
+    public function setDisciplineName(string $disciplineName): self
     {
-        $this->discipline = $discipline;
+        $this->disciplineName = $disciplineName;
 
         return $this;
     }
@@ -313,7 +282,7 @@ class SportClub
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -348,5 +317,17 @@ class SportClub
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getDisciplines(): ?Discipline
+    {
+        return $this->disciplines;
+    }
+
+    public function setDisciplines(?Discipline $disciplines): self
+    {
+        $this->disciplines = $disciplines;
+
+        return $this;
     }
 }

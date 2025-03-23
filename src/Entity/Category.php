@@ -3,31 +3,24 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=CategoryRepository::class)
- */
+#[ORM\Entity]
+#[ORM\Table(name:"category")]
 class Category
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column()]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity=SportClub::class, mappedBy="categories")
-     */
-    private $sportClubs;
+    #[ORM\Column(length: 255)]
+    private string $name;
+
+    #[ORM\OneToMany(mappedBy: 'categories', targetEntity: SportClub::class, orphanRemoval: true)]
+    private Collection $sportClubs;
 
     public function __construct()
     {
@@ -52,7 +45,7 @@ class Category
     }
 
     /**
-     * @return Collection|SportClub[]
+     * @return Collection
      */
     public function getSportClubs(): Collection
     {

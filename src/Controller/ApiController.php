@@ -5,8 +5,6 @@ namespace App\Controller;
 use App\Data\SearchData;
 use App\Form\SearchForm;
 use App\Entity\SportClub;
-use App\Entity\PostalCode;
-use App\Service\ClubApiService;
 use App\Repository\CategoryRepository;
 use App\Repository\SportClubRepository;
 use App\Repository\PostalCodeRepository;
@@ -14,20 +12,21 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiController extends AbstractController
 {
-    /**
-     * @Route("/", name="api")
-     */
-    public function index(
-    Request $request, EntityManagerInterface $manager,
-    CategoryRepository $categRepo, 
-    PostalCodeRepository $postalRepo, SportClubRepository $clubrepo)
+    public function __construct(
+        protected EntityManagerInterface $manager,
+        protected CategoryRepository $categoryRepo,
+        protected PostalCodeRepository $postalRepo,
+        protected SportClubRepository $clubRepo
+    )
+    {
+    }
+
+    #[Route("/", name:"api")]
+    public function index(Request $request)
     {
         
         $data = new SearchData();
@@ -35,18 +34,15 @@ class ApiController extends AbstractController
         $form->handleRequest($request);
 
 
-        $clubs = $clubrepo->findAll();
+        $clubs = $this->clubRepo->findAll();
       
 
          if ($form->isSubmitted() && $form->isValid()) {
             
-            $filtered = $postalRepo->filterClubs($data);
+            $filtered = $this->postalRepo->filterClubs($data);
             $sport = $form->get('q')->getData();
             $postals = $form->get('postals')->getData();
-            $newSearch = true;
             // $categories = $form->get('categories')->getData();
-            // dd($filtered);
-            // dd($sport);
 
             return $this->render('api/result.html.twig', [
                     'filtered' => $filtered,
@@ -54,7 +50,7 @@ class ApiController extends AbstractController
                     'postals' =>$postals,
                     'sport' => $sport,
                     'data' => $data,
-                    'newSearch' => $newSearch
+                    'newSearch' => true
                     // 'categories' => $categories
                     ]);
         }
@@ -85,19 +81,12 @@ class ApiController extends AbstractController
     }
 
 
-
-    /**
-     * @Route("/club/{id}", name="detail")
-     */
-    public function detail(SportClub $sportClub, SportClubRepository $repo)
+    #[Route("/club/{id}", name:"detail", methods: ['GET'])]
+    public function detail(SportClub $sportClub)
     {
-        $newSearch = true;
         return $this->render('api/detail.html.twig', [
             'club' => $sportClub,
-            'newSearch' => $newSearch
-
+            'newSearch' => true
         ]);
     }
-
-   
 }

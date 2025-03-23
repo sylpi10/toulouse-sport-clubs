@@ -3,12 +3,12 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Discipline;
 use App\Entity\SportClub;
 use App\Entity\PostalCode;
 use App\Service\ClubApiService;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\Expr\Value;
 
 class AppFixtures extends Fixture
 {
@@ -19,7 +19,7 @@ class AppFixtures extends Fixture
         $this->apiService = $apiService;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         // get values from api and send to our db
 $resp = $this->apiService->getClub();
@@ -49,10 +49,13 @@ $categ14 = new Category();
 
 foreach ($records as $key => $club) {
 $id = $club['recordid'];
-$club = $club;
+// $club = $club;
 $fields = $club['fields'];
 // dump($fields);
-$discipline = $fields["discipline"];
+
+// TODO set one discipline for every same string 
+$discipline = $fields['discipline'];
+
 
 if (isset($fields["asso_nom"]) && !empty($fields["asso_nom"])) {
     $name = $fields["asso_nom"];
@@ -164,9 +167,17 @@ if (isset($fields["pers_internet"]) &&!empty($fields["pers_internet"]) ) {
 // dump($discipline);
 
 $sportClub = new SportClub();
+$disciplineEnt = new Discipline();
 
 $sportClub->setName($name);
-$sportClub->setDiscipline(strtolower($discipline));
+$sportClub->setDiscipline($discipline);
+
+if (strtolower($sportClub->getDiscipline()) ==  strtolower($discipline)) {
+    $disciplineEnt->setName(strtolower($discipline));
+}
+if (strtolower($sportClub->getDiscipline()) == strtolower($discipline)) {
+    $sportClub->setDisciplines($disciplineEnt);
+}
 
 if ($complex) {
     $sportClub->setComplex($complex);
@@ -448,6 +459,7 @@ OR str_contains(strtolower($discipline), "polo")
 }
 
 $manager->persist($sportClub);
+$manager->persist($disciplineEnt);
 
 }
 $manager->persist($postalCode1);

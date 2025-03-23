@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\PostalCodeRepository;
+use App\Repository\DisciplineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PostalCodeRepository::class)]
-#[ORM\Table(name:"postal_code")]
-class PostalCode
+#[ORM\Entity(repositoryClass: DisciplineRepository::class)]
+#[ORM\Table(name:"discipline")]
+class Discipline
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,10 +17,10 @@ class PostalCode
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $number;
+    private ?string $name;
 
-    #[ORM\OneToMany(mappedBy: 'postalCodes', targetEntity: SportClub::class, orphanRemoval: true)]
-    private ?Collection $sportClubs;
+    #[ORM\OneToMany(mappedBy: 'discipline', targetEntity: SportClub::class)]
+    private Collection $sportClubs;
 
     public function __construct()
     {
@@ -32,22 +32,22 @@ class PostalCode
         return $this->id;
     }
 
-    public function getNumber(): ?string
+    public function getName(): ?string
     {
-        return $this->number;
+        return $this->name;
     }
 
-    public function setNumber(?string $number): self
+    public function setName(?string $name): self
     {
-        $this->number = $number;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function getSportClubs(): ?Collection
+    public function getSportClubs(): Collection
     {
         return $this->sportClubs;
     }
@@ -56,7 +56,7 @@ class PostalCode
     {
         if (!$this->sportClubs->contains($sportClub)) {
             $this->sportClubs[] = $sportClub;
-            $sportClub->setPostalCodes($this);
+            $sportClub->setDisciplineName($this);
         }
 
         return $this;
@@ -67,15 +67,16 @@ class PostalCode
         if ($this->sportClubs->contains($sportClub)) {
             $this->sportClubs->removeElement($sportClub);
             // set the owning side to null (unless already changed)
-            if ($sportClub->getPostalCodes() === $this) {
-                $sportClub->setPostalCodes(null);
+            if ($sportClub->getDisciplineName() === $this) {
+                $sportClub->setDisciplineName('');
             }
         }
 
         return $this;
     }
+
     public function __toString()
     {
-        return $this->number;
+        return $this->name;
     }
 }
