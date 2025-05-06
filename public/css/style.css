@@ -4,6 +4,10 @@
     font-family: "sketchy";
     src: url('../fonts/CabinSketch-Regular.ttf'); 
  }
+@font-face{
+    font-family: "freshman";
+    src: url('../fonts/Freshman.ttf');
+ }
 html{
     height: 100%;
 }
